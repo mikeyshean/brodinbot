@@ -9,6 +9,36 @@ first_name              | string    |
 last_name              | string    |
 session_token      | string    | not null, unique, index
 
+# Messaging Schema
+
+## messages
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+body               | text    | not null
+user_id            | string    |
+response_id        | string    | foreign key (references responses)
+
+## responses
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+body               | text      | not null
+workflow_id        | integer   | foreign key (references workflows)
+index              | integer   | not null, default 0 (indicates workflow sequence#)
+
+
+## workflows
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+name               | text      | not null
+category           | integer   | foreign key (references workflow_categories)
+is_active          | boolean   | not null, default true (1)
+
+
+# Fitness Schema
+
 ## exercises
 column name | data type | details
 ------------|-----------|-----------------------

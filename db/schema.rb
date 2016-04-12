@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412142839) do
+ActiveRecord::Schema.define(version: 20160412151459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,16 +25,10 @@ ActiveRecord::Schema.define(version: 20160412142839) do
   end
 
   create_table "responses", force: :cascade do |t|
-    t.text     "body",                    null: false
-    t.integer  "workflow_id"
-    t.integer  "index",       default: 0, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "trigger_id"
-    t.integer  "parent_id"
+    t.text     "body",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "responses", ["workflow_id"], name: "index_responses_on_workflow_id", using: :btree
 
   create_table "trigger_strings", force: :cascade do |t|
     t.string   "text",       null: false
@@ -43,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160412142839) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "trigger_strings", ["trigger_id", "text"], name: "index_trigger_strings_on_trigger_id_and_text", unique: true, using: :btree
   add_index "trigger_strings", ["trigger_id"], name: "index_trigger_strings_on_trigger_id", using: :btree
 
   create_table "triggers", force: :cascade do |t|
@@ -63,12 +58,24 @@ ActiveRecord::Schema.define(version: 20160412142839) do
 
   add_index "users", ["phone_number"], name: "index_users_on_phone_number", using: :btree
 
+  create_table "workflow_responses", force: :cascade do |t|
+    t.integer  "workflow_id",             null: false
+    t.integer  "version",     default: 1, null: false
+    t.integer  "response_id",             null: false
+    t.integer  "parent_id"
+    t.integer  "trigger_id"
+    t.integer  "index",       default: 0, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "workflows", force: :cascade do |t|
-    t.string   "name",                      null: false
+    t.string   "name",                           null: false
     t.integer  "category"
-    t.boolean  "is_active",  default: true, null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "is_active",       default: true, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "current_version", default: 1,    null: false
   end
 
 end

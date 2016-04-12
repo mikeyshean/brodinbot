@@ -16,8 +16,8 @@ column name        | data type | details
 -------------------|-----------|-----------------------
 id                 | integer   | not null, primary key
 body               | text    | not null
-user_id            | string    |
-response_id        | string    | foreign key (references responses)
+user_id            | integer    |
+response_id        | integer    | foreign key (references responses)
 
 ## responses
 column name        | data type | details

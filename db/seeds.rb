@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+new_user_flow = Workflow.create!(name: 'New User')
+
+new_user_flow.responses.create!(body: "Welcome to BrodinBot!  What should I call you?", index: 0)

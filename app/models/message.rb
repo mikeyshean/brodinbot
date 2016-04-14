@@ -1,7 +1,7 @@
 class Message < ActiveRecord::Base
   validates :body, presence: true
   belongs_to :user
-  belongs_to :response
+  belongs_to :workflow_response_id
 
   def self.create_incoming_message(params, user, response = nil)
     response_id = response ? response.id : nil

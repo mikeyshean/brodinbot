@@ -27,6 +27,16 @@ body               | text      | not null
 workflow_id        | integer   | foreign key (references workflows)
 index              | integer   | not null, default 0 (indicates workflow sequence#)
 
+## workflow_responses
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+workflow_id        | integer   | foreign key (references workflows)
+version            | integer   | not null, default 1
+response_id        | integer   | foreign key (references workflows)
+index              | integer   | not null, default 0 (indicates workflow sequence#)
+parent_id          | integer   | foreign key (self referential)
+trigger_id         | integer   | foreign key (references triggers)
 
 ## workflows
 column name        | data type | details
@@ -34,7 +44,21 @@ column name        | data type | details
 id                 | integer   | not null, primary key
 name               | text      | not null
 category           | integer   | foreign key (references workflow_categories)
-is_active          | boolean   | not null, default true (1)
+current_version    | integer   | not null, default 1
+is_active          | boolean   | not null, default true
+
+## triggers
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+category           | integer   | foreign key (references workflow_categories)
+
+## trigger_strings
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+text               | string    | not null
+trigger_id         | string    | not null, foreign key (references triggers)
 
 
 # Fitness Schema

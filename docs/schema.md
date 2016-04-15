@@ -47,6 +47,17 @@ category           | integer   | foreign key (references workflow_categories)
 current_version    | integer   | not null, default 1
 is_active          | boolean   | not null, default true
 
+## user_workflows
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+workflow_id        | integer   |not null, foreign key (references workflows)
+user_id            | integer   | not null, foreign key (references users)
+version            | integer   | not null, default 1
+index              | integer   | not null, default 0
+started_at         | timestamp   | not null, default true
+ended_at           | timestamp   | not null, default true
+
 ## triggers
 column name        | data type | details
 -------------------|-----------|-----------------------

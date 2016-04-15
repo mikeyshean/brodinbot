@@ -15,10 +15,15 @@ class Workflow < ActiveRecord::Base
     end
 
     # Create user_workflow record
-    # return workflow to twilio controller
 
-    response = workflow.get_response(0, version)
-    return response
+    user_workflow = UserWorkflow.create!(
+      workflow_id: workflow.id,
+      version: version,
+      user_id: user.id
+    )
+
+    # return workflow to twilio controller
+    return user_workflow
   end
 
   def get_response(index, version = self.current_version)

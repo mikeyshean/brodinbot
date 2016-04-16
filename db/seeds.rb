@@ -10,8 +10,12 @@
 new_user_flow = Workflow.create!(name: 'New User')
 response1 = Response.create!(body: "Welcome to BrodinBot!  What should I call you?")
 response2 = Response.create!(body: 'Alright I\'ll call you #{var}')
+response3 = Response.create!(body: 'You confirmed :)')
+response4 = Response.create!(body: 'You denied :(')
 new_user_flow.workflow_responses.create!(response_id: response1.id)
-new_user_flow.workflow_responses.create!(response_id: response2.id, index: 1, parent_id: response1.id)
+workflow_response2 = new_user_flow.workflow_responses.create!(response_id: response2.id, index: 1, parent_id: response1.id)
+workflow_response3 = new_user_flow.workflow_responses.create!(response_id: response3.id, index: 1, parent_id: response1.id)
+workflow_response4 = new_user_flow.workflow_responses.create!(response_id: response4.id, index: 1, parent_id: response1.id)
 
 # Triggers
 triggers = {
@@ -31,7 +35,14 @@ triggers.each do |type, trigger_strings|
     trigger.trigger_strings.create!(text: trigger_string)
   end
   if type == 'First Word'
-    response2.trigger_id = trigger_id
-    response2.save!
+    workflow_response2.trigger_id = trigger.id
+    workflow_response2.save!
+  elsif type == 'Confirm'
+    workflow_response3.trigger_id = trigger.id
+    workflow_response3.save!
+  elsif type == 'Deny'
+    workflow_response4.trigger_id = trigger.id
+    workflow_response4.save!
   end
+
 end

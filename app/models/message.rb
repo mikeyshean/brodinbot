@@ -1,7 +1,8 @@
 class Message < ActiveRecord::Base
   validates :body, presence: true
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   belongs_to :workflow_response
+  belongs_to :user_workflow
 
   def self.create_incoming_message(params, user, workflow_response = nil)
     workflow_response_id = workflow_response ? workflow_response.id : nil
@@ -12,6 +13,10 @@ class Message < ActiveRecord::Base
     )
 
     return message
+  end
+
+  def tokenize
+    self.body.downcase.gsub(/[^a-z0-9\s]/i, '').split(' ')
   end
 
   def save_workflow_response(workflow_response)

@@ -1,15 +1,29 @@
 class TwilioController < ApplicationController
 
-  enable :sessions
-
   def receiveSMS
     # Find/Create User by PhoneNumber
-    # If new, begin New User Flow
-    # Else if open conversation, continue response flow
-    # Else, begin returning user flow
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Message "Hey Monkey. Thanks for the message!"
+    from_number = params['From']
+
+    user = User.find_or_create_by_number(from_number)
+    user_message = Message.create_incoming_message(params, user)
+
+    if user.has_active_workflow?
+      user_workflow = user.active_workflow
+      workflow_response = user_workflow.generate_response(user_message)
+
+      self.send_response(workflow_response.response_body)
+    else
+      workflow_response = Workflow.start_user_workflow(user_message)
+
+      self.send_response(workflow_response.response_body)
     end
+  end
+  
+  def send_response(message)
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Message message
+    end
+
     render xml: twiml.text
   end
 end

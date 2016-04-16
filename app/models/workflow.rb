@@ -8,36 +8,32 @@ class Workflow < ActiveRecord::Base
     :NEW_USER => 1
   }
 
-  def self.start_user_workflow(message, name = nil, version = nil)
+  def self.start_user_workflow(message)
     if message.user.is_new?
       workflow = Workflow.find(WORKFLOWS[:NEW_USER])
-      version = workflow.current_version if !version
+      workflow_response = workflow.first_workflow_response
 
       user_workflow = UserWorkflow.create!(
         workflow_id: workflow.id,
-        version: version,
-        user_id: message.user_id
+        version: workflow.current_version,
+        user_id: message.user_id,
+        workflow_response_id: workflow_response.id,
+        message_id: message.id
+      )
+
+      message.save!(
+        workflow_response_id: workflow_response.id,
+        user_workflow_id: user_workflow.id
       )
     else
-      user_workflow = Workflow.parse(message)
+      Workflow.parse(message)
     end
 
-    return user_workflow
+    return workflow_response
   end
 
-  def get_response(index, version = self.current_version)
-    self.response_by_index_version(index, version)
-  end
-
-  private
-
-  def response_by_index_version(index, version = self.current_version)
-    WorkflowResponse.includes(:response).where(
-      workflow_id: self.id,
-      version: version,
-      index: index
-    ).first
-    # self.responses.where(:workflow_responses => {:version => version}, index: index)
+  def first_workflow_response(version = current_version)
+    WorkflowResponse.find_by(workflow_id: id, version: version, parent_id: nil)
   end
 
 end

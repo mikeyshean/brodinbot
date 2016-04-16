@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415210230) do
+ActiveRecord::Schema.define(version: 20160416045645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160415210230) do
     t.integer  "workflow_response_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "user_workflow_id"
   end
 
   create_table "responses", force: :cascade do |t|
@@ -49,15 +50,18 @@ ActiveRecord::Schema.define(version: 20160415210230) do
   add_index "triggers", ["category"], name: "index_triggers_on_category", unique: true, using: :btree
 
   create_table "user_workflows", force: :cascade do |t|
-    t.integer  "workflow_id",             null: false
-    t.integer  "user_id",                 null: false
-    t.integer  "version",     default: 1, null: false
-    t.integer  "index",       default: 0, null: false
+    t.integer  "workflow_id",                      null: false
+    t.integer  "user_id",                          null: false
+    t.integer  "version",              default: 1, null: false
+    t.integer  "message_id"
+    t.integer  "workflow_response_id", default: 0, null: false
     t.datetime "started_at"
     t.datetime "ended_at"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
+
+  add_index "user_workflows", ["user_id"], name: "index_user_workflows_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "phone_number", limit: 15, null: false

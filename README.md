@@ -1,15 +1,25 @@
 BrodinBot
 ===================
 
+Record your fitness data through an SMS chat interface.
+Messages are parsed and analyzed to trigger conversation workflows that
+can either write to or query from the database.  Users will then be able
+to view analytics created from their data through the web-app. Create or
+modify conversation workflows using the admin tools and attach triggers to
+hook into them from the existing decision tree.  The goal is to make this
+tool flexible to build enough for other use cases.
 
 Features (MVP)
 ----------
 
+- [x] Twilio SMS Integration
+- [x] Parse incoming messages and route to appropriate response workflow
+- [x] Workflow 1 - New User Creation
+- [ ] Workflow 2 - Select exercise & save resistance/rep count
 - [ ] User Auth
-- [ ] Twilio SMS Integration
-- [ ] Provide workout data to BrodinBot via SMS (Exercise, Sets, Reps, Duration)
+- [ ] Create admin tool to easily create new workflows and attach triggers
+- [ ] User should be able to save # of Sets/Reps/Resistance by exercise type via SMS
 - [ ] Login via Web App to view analytics
-- [ ] Create fitness routines on web to be activated later by SMS
 
 ## Design Docs
 * [DB schema][schema]

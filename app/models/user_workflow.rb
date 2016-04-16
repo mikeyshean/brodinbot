@@ -20,9 +20,20 @@ class UserWorkflow < ActiveRecord::Base
   end
 
   def workflow_responses
-    WorkflowResponse.where(
+    WorkflowResponse.where(workflow_id: workflow_id, version: version)
+  end
+
+  def generate_response(message)
+    trigger_strings = self.trigger_strings
+    # Identify acceptable triggers based on last sent response
+
+  end
+
+  def trigger_strings
+    WorkflowResponse.find_by(
       workflow_id: workflow_id,
-      version: version
-    )
+      version: version,
+      index: index
+    ).trigger_strings
   end
 end

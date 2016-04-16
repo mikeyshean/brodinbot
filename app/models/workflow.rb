@@ -8,21 +8,20 @@ class Workflow < ActiveRecord::Base
     :NEW_USER => 1
   }
 
-  def self.start_workflow(user, name, version = nil)
-    workflow = Workflow.find(WORKFLOWS[name])
-    if !version
-      version = workflow.current_version
+  def self.start_user_workflow(message, name = nil, version = nil)
+    if message.user.is_new?
+      workflow = Workflow.find(WORKFLOWS[:NEW_USER])
+      version = workflow.current_version if !version
+
+      user_workflow = UserWorkflow.create!(
+        workflow_id: workflow.id,
+        version: version,
+        user_id: message.user_id
+      )
+    else
+      user_workflow = Workflow.parse(message)
     end
 
-    # Create user_workflow record
-
-    user_workflow = UserWorkflow.create!(
-      workflow_id: workflow.id,
-      version: version,
-      user_id: user.id
-    )
-
-    # return workflow to twilio controller
     return user_workflow
   end
 

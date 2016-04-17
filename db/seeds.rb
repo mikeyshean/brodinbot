@@ -13,9 +13,9 @@ response2 = Response.create!(body: 'Alright I\'ll call you #{var}')
 response3 = Response.create!(body: 'You confirmed :)')
 response4 = Response.create!(body: 'You denied :(')
 new_user_flow.workflow_responses.create!(response_id: response1.id)
-workflow_response2 = new_user_flow.workflow_responses.create!(response_id: response2.id, index: 1, parent_id: response1.id)
-workflow_response3 = new_user_flow.workflow_responses.create!(response_id: response3.id, index: 1, parent_id: response1.id)
-workflow_response4 = new_user_flow.workflow_responses.create!(response_id: response4.id, index: 1, parent_id: response1.id)
+workflow_response2 = new_user_flow.workflow_responses.create!(response_id: response2.id, terminates: true, parent_id: response1.id)
+workflow_response3 = new_user_flow.workflow_responses.create!(response_id: response3.id, terminates: true, parent_id: response1.id)
+workflow_response4 = new_user_flow.workflow_responses.create!(response_id: response4.id, terminates: true, parent_id: response1.id)
 
 # Triggers
 triggers = {

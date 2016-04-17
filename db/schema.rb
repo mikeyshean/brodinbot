@@ -51,10 +51,10 @@ ActiveRecord::Schema.define(version: 20160416163231) do
 
   create_table "user_workflows", force: :cascade do |t|
     t.integer  "workflow_id",                      null: false
-    t.integer  "user_id",                          null: false
     t.integer  "version",              default: 1, null: false
     t.integer  "message_id"
     t.integer  "workflow_response_id", default: 0, null: false
+    t.integer  "user_id",                          null: false
     t.datetime "started_at"
     t.datetime "ended_at"
     t.datetime "created_at",                       null: false

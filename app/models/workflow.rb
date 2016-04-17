@@ -21,10 +21,7 @@ class Workflow < ActiveRecord::Base
         message_id: message.id
       )
 
-      message.save!(
-        workflow_response_id: workflow_response.id,
-        user_workflow_id: user_workflow.id
-      )
+      message.update_references!(workflow_response, user_workflow)
     else
       Workflow.parse(message)
     end

@@ -1,7 +1,7 @@
 class UserWorkflow < ActiveRecord::Base
   validates :workflow_id, :user_id, presence: true
 
-  # has_many :workflow_responses, through: :workflow
+  has_many :workflow_responses, -> (object){ where("version = ?", object.version)}, through: :workflow
   belongs_to :workflow
   belongs_to :user
   belongs_to :workflow_response
@@ -10,74 +10,69 @@ class UserWorkflow < ActiveRecord::Base
   before_create :set_start_date
 
   def generate_response(message)
-    trigger_and_ids = self.trigger_strings.pluck(:text, :trigger_id)
-    message_tokens = message.tokenize
+    workflow_response = process_message(message)
 
-    trigger_id = get_trigger_id(trigger_and_ids, message_tokens)
-
-    if trigger_id.nil?
+    if workflow_response.nil?
       # Trigger nested help cycle
     else
-      workflow_response = next_workflow_response(trigger_id)
+      # Updates current state references of user workflow
+      self.update_references!(workflow_response, message)
 
-      self.save!(
-        workflow_response_id: workflow_response.id,
-        message_id: message.id
-      )
+      # Assigns UserWorkflow and Response to Incoming Message
+      message.update_references!(workflow_response, self)
 
-      message.save!(
-        workflow_response_id: workflow_response.id,
-        user_workflow_id: id
-      )
+      completed if workflow_response.terminates?
 
       return workflow_response
     end
   end
 
-  def trigger_strings
-    TriggerString.joins(trigger: :workflow_responses).where(
-      workflow_responses: {
-        workflow_id: workflow_id,
-        version: version,
-        parent_id: workflow_response_id
-      }
-    )
-  end
-
   def next_workflow_response(trigger_id)
-    WorkflowResponse.find_by(
-      workflow_id: workflow_id,
-      version: version,
-      trigger_id: trigger_id,
-      parent_id: workflow_response_id
-    )
+    workflow_responses.where(parent_id: id, trigger_id: trigger_id)
   end
 
+  def completed
+    self.ended_at = DateTime.current
+    self.save!
+  end
+
+  def update_references!(workflow_response, message)
+    self.update_attributes!(
+      workflow_response_id: workflow_response.id,
+      message_id: message.id
+    )
+  end
+  
   private
 
-  def get_trigger_id(triggers_and_ids, message_tokens)
+  def process_message(message)
+    message_tokens = message.tokenize
+    possible_responses = workflow_responses.where(parent_id: workflow_id).includes(:trigger_strings)
 
-    triggers_and_ids.each do |pair|
-      trigger_string, trigger_id = pair[0], pair[1]
+    possible_responses.each do |workflow_response|
+      workflow_response.trigger_strings.each do |trigger_string|
+        test_string = trigger_string.text
 
-      if trigger_string[0] == "/"
-        # convert to regex comparison
-      else
-        trigger_array = trigger_string.split(' ')
+        if test_string[0] == "/"
+          # convert to regex comparison
+        else
+          trigger_array = test_string.split(' ')
 
-        matched = true
-        trigger_array.each_with_index do |str, idx|
-          if str != message_tokens[idx]
-            matched = false
-            break
+          matched = true
+          trigger_array.each_with_index do |str, idx|
+            if str != message_tokens[idx]
+              matched = false
+              break
+            end
+          end
+
+          if matched
+            # Call workflow_action if flagged and return that response instead
+            return workflow_response
           end
         end
-
-        return trigger_id if matched
       end
     end
-
-    return nil
   end
 
   def set_start_date

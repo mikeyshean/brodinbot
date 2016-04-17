@@ -8,4 +8,8 @@ class WorkflowResponse < ActiveRecord::Base
   def response_body
     self.response.body
   end
+
+  def terminates?
+    self.terminates
+  end
 end

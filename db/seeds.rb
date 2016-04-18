@@ -10,11 +10,12 @@
 new_user_flow = Workflow.create!(name: 'New User')
 response1 = Response.create!(body: "Welcome to BrodinBot!  What should I call you?")
 response2 = Response.create!(body: 'Alright I\'ll call you #{var}')
-response3 = Response.create!(body: 'You confirmed :)')
-response4 = Response.create!(body: 'You denied :(')
+response3 = Response.create!(body: 'Action Success')
+response4 = Response.create!(body: 'Sorry, what\'s your name?')
+action1 = Action.create!(method: 'save_user_name')
 new_user_flow.workflow_responses.create!(actionable_id: response1.id, actionable_type: response1.class)
-workflow_response2 = new_user_flow.workflow_responses.create!(actionable_id: response2.id, actionable_type: response2.class, terminates: true, parent_id: response1.id)
-workflow_response3 = new_user_flow.workflow_responses.create!(actionable_id: response3.id, actionable_type: response3.class, terminates: true, parent_id: response1.id)
+workflow_response2 = new_user_flow.workflow_responses.create!(actionable_id: action1.id, actionable_type: action1.class, parent_id: response1.id)
+workflow_response3 = new_user_flow.workflow_responses.create!(actionable_id: response2.id, actionable_type: response2.class, terminates: true, parent_id: action1.id)
 workflow_response4 = new_user_flow.workflow_responses.create!(actionable_id: response4.id, actionable_type: response4.class, terminates: true, parent_id: response1.id)
 
 # Triggers
@@ -25,7 +26,10 @@ triggers = {
   'Commands' => ['help', 'commands', 'menu'],
   'Favorites' => ['favorites', 'faves', 'fav', 'fave'],
   'Query' => ['get', 'list'],
-  'First Word' => ['^[a-z]+(\s|$)']
+  'One Word Capture' => ['^([a-z]+)\s|$'],
+  'Two Word Capture' => ['^([a-z]+)$ ^([a-z]+)$'],
+  'Action Success' => [],
+  'Action Fail' => []
 }
 
 triggers.each do |type, trigger_strings|
@@ -34,13 +38,13 @@ triggers.each do |type, trigger_strings|
   trigger_strings.each do |trigger_string|
     trigger.trigger_strings.create!(text: trigger_string)
   end
-  if type == 'First Word'
+  if type == 'One Word Capture'
     workflow_response2.trigger_id = trigger.id
     workflow_response2.save!
-  elsif type == 'Confirm'
+  elsif type == 'Action Success'
     workflow_response3.trigger_id = trigger.id
     workflow_response3.save!
-  elsif type == 'Deny'
+  elsif type == 'Action Fail'
     workflow_response4.trigger_id = trigger.id
     workflow_response4.save!
   end

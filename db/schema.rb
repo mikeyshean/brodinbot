@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416163231) do
+ActiveRecord::Schema.define(version: 20160418182731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,10 +51,10 @@ ActiveRecord::Schema.define(version: 20160416163231) do
 
   create_table "user_workflows", force: :cascade do |t|
     t.integer  "workflow_id",                      null: false
+    t.integer  "user_id",                          null: false
     t.integer  "version",              default: 1, null: false
     t.integer  "message_id"
     t.integer  "workflow_response_id", default: 0, null: false
-    t.integer  "user_id",                          null: false
     t.datetime "started_at"
     t.datetime "ended_at"
     t.datetime "created_at",                       null: false
@@ -74,15 +74,18 @@ ActiveRecord::Schema.define(version: 20160416163231) do
   add_index "users", ["phone_number"], name: "index_users_on_phone_number", using: :btree
 
   create_table "workflow_responses", force: :cascade do |t|
-    t.integer  "workflow_id",                 null: false
-    t.integer  "version",     default: 1,     null: false
-    t.integer  "response_id",                 null: false
+    t.integer  "workflow_id",                     null: false
+    t.integer  "version",         default: 1,     null: false
+    t.integer  "actionable_id",                   null: false
+    t.string   "actionable_type"
     t.integer  "parent_id"
     t.integer  "trigger_id"
-    t.boolean  "terminates",  default: false, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "terminates",      default: false, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
+
+  add_index "workflow_responses", ["workflow_id", "version", "actionable_id"], name: "workflow_version_action_index", using: :btree
 
   create_table "workflows", force: :cascade do |t|
     t.string   "name",                           null: false

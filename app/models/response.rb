@@ -1,6 +1,6 @@
 class Response < ActiveRecord::Base
   validates :body, presence: true
-  has_many :workflow_responses
+  has_many :workflow_responses, through: :actionable
   has_many :workflows, through: :workflow_responses
 
   def send_response(user)

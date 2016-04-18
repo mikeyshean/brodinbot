@@ -42,12 +42,12 @@ class UserWorkflow < ActiveRecord::Base
       message_id: message.id
     )
   end
-  
+
   private
 
   def process_message(message)
     message_tokens = message.tokenize
-    possible_responses = workflow_responses.where(parent_id: workflow_id).includes(:trigger_strings)
+    possible_responses = workflow_responses.where(parent_id: workflow_response_id).includes(:trigger_strings)
 
     possible_responses.each do |workflow_response|
       workflow_response.trigger_strings.each do |trigger_string|

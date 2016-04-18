@@ -9,14 +9,15 @@
 
 new_user_flow = Workflow.create!(name: 'New User')
 response1 = Response.create!(body: "Welcome to BrodinBot!  What should I call you?")
-response2 = Response.create!(body: 'Alright I\'ll call you #{var}')
 response3 = Response.create!(body: 'Action Success')
 response4 = Response.create!(body: 'Sorry, what\'s your name?')
 action1 = Action.create!(method: 'save_user_name')
-new_user_flow.workflow_responses.create!(actionable_id: response1.id, actionable_type: response1.class)
-workflow_response2 = new_user_flow.workflow_responses.create!(actionable_id: action1.id, actionable_type: action1.class, parent_id: response1.id)
-workflow_response3 = new_user_flow.workflow_responses.create!(actionable_id: response2.id, actionable_type: response2.class, terminates: true, parent_id: action1.id)
-workflow_response4 = new_user_flow.workflow_responses.create!(actionable_id: response4.id, actionable_type: response4.class, terminates: true, parent_id: response1.id)
+action2 = Action.create!(method: 'name_first')
+response2 = Response.create!(body: 'Alright, I\'ll call you *var', action_id: action2.id)
+workflow_response1 = new_user_flow.workflow_responses.create!(actionable_id: response1.id, actionable_type: response1.class)
+workflow_response2 = new_user_flow.workflow_responses.create!(actionable_id: action1.id, actionable_type: action1.class, parent_id: workflow_response1.id)
+workflow_response3 = new_user_flow.workflow_responses.create!(actionable_id: response2.id, actionable_type: response2.class, terminates: true, parent_id: workflow_response2.id)
+workflow_response4 = new_user_flow.workflow_responses.create!(actionable_id: response4.id, actionable_type: response4.class, terminates: true, parent_id: workflow_response2.id)
 
 # Triggers
 triggers = {
@@ -26,8 +27,8 @@ triggers = {
   'Commands' => ['help', 'commands', 'menu'],
   'Favorites' => ['favorites', 'faves', 'fav', 'fave'],
   'Query' => ['get', 'list'],
-  'One Word Capture' => ['^([a-z]+)\s|$'],
-  'Two Word Capture' => ['^([a-z]+)$ ^([a-z]+)$'],
+  'One Word Capture' => ['*^([a-z]+)$'],
+  'Two Word Capture' => ['*^([a-z]+)$ *^([a-z]+)$'],
   'Action Success' => [],
   'Action Fail' => []
 }

@@ -2,6 +2,7 @@ class Response < ActiveRecord::Base
   validates :body, presence: true
   has_many :workflow_responses, through: :actionable
   has_many :workflows, through: :workflow_responses
+  belongs_to :action
 
   def send_response(user)
     account_sid = ENV['TWILIO_SID']
@@ -15,5 +16,9 @@ class Response < ActiveRecord::Base
       :to => user.phone_number,
       :body => self.body
     )
+  end
+
+  def has_action?
+    !action_id.nil?
   end
 end

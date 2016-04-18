@@ -27,8 +27,8 @@ class UserWorkflow < ActiveRecord::Base
     end
   end
 
-  def next_workflow_response(trigger_id)
-    workflow_responses.where(parent_id: id, trigger_id: trigger_id)
+  def action_response(workflow_response_id, trigger_id)
+    workflow_responses.find_by(parent_id: workflow_response_id, trigger_id: trigger_id)
   end
 
   def completed
@@ -53,22 +53,35 @@ class UserWorkflow < ActiveRecord::Base
       workflow_response.trigger_strings.each do |trigger_string|
         test_string = trigger_string.text
 
-        if test_string[0] == "/"
-          # convert to regex comparison
-        else
-          trigger_array = test_string.split(' ')
+        # convert to regex comparison
+        trigger_array = test_string.split(' ')
 
-          matched = true
-          trigger_array.each_with_index do |str, idx|
-            if str != message_tokens[idx]
+        matched = true
+        captures = []
+        trigger_array.each_with_index do |str, idx|
+          if str[0] == "*"
+            regexp = Regexp.new(str.slice(1, str.length))
+            matchdata = regexp.match(message_tokens[idx])
+            if matchdata.nil?
               matched = false
               break
+            else
+              captures << matchdata[1] unless matchdata[1].nil?
             end
+          elsif str != message_tokens[idx]
+            matched = false
+            break
           end
+        end
 
-          if matched
-            # Call workflow_action if flagged and return that response instead
+        if matched
+          # Call workflow_action if flagged and return that response instead
+          if workflow_response.actionable_type == "Response"
             return workflow_response
+          else
+            response = workflow_response.actionable.execute_method(user, captures)
+
+            return action_response(workflow_response.id, response[:trigger_id])
           end
         end
       end

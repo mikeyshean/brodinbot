@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root to: "static_pages#root"
   get "/twilio" => "twilio#receiveSMS"
+
+  namespace :api, defaults: { format: :json } do
+    resources :workflows, only: [:index, :create]
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

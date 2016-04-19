@@ -7,17 +7,19 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-new_user_flow = Workflow.create!(name: 'New User')
+new_user_workflow1 = Workflow.create!(name: 'New User')
+new_user_workflow2 = Workflow.create!(name: 'Suggest Exercises')
+new_user_workflow3 = Workflow.create!(name: 'Save Reps')
 response1 = Response.create!(body: "Welcome to BrodinBot!  What should I call you?")
 response3 = Response.create!(body: 'Action Success')
 response4 = Response.create!(body: 'Sorry, what\'s your name?')
 action1 = Action.create!(method: 'save_user_name')
 action2 = Action.create!(method: 'name_first')
 response2 = Response.create!(body: 'Alright, I\'ll call you *var', action_id: action2.id)
-workflow_response1 = new_user_flow.workflow_responses.create!(actionable_id: response1.id, actionable_type: response1.class)
-workflow_response2 = new_user_flow.workflow_responses.create!(actionable_id: action1.id, actionable_type: action1.class, parent_id: workflow_response1.id)
-workflow_response3 = new_user_flow.workflow_responses.create!(actionable_id: response2.id, actionable_type: response2.class, terminates: true, parent_id: workflow_response2.id)
-workflow_response4 = new_user_flow.workflow_responses.create!(actionable_id: response4.id, actionable_type: response4.class, terminates: true, parent_id: workflow_response2.id)
+workflow_response1 = new_user_workflow1.workflow_responses.create!(actionable_id: response1.id, actionable_type: response1.class)
+workflow_response2 = new_user_workflow1.workflow_responses.create!(actionable_id: action1.id, actionable_type: action1.class, parent_id: workflow_response1.id)
+workflow_response3 = new_user_workflow1.workflow_responses.create!(actionable_id: response2.id, actionable_type: response2.class, terminates: true, parent_id: workflow_response2.id)
+workflow_response4 = new_user_workflow1.workflow_responses.create!(actionable_id: response4.id, actionable_type: response4.class, terminates: true, parent_id: workflow_response2.id)
 
 # Triggers
 triggers = {

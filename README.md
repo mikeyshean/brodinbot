@@ -21,6 +21,13 @@ Features (MVP)
 - [ ] User should be able to save # of Sets/Reps/Resistance by exercise type via SMS
 - [ ] Login via Web App to view analytics
 
+
+Languages/Frameworks/Tools
+----------
+- Ruby/Rails
+- React/Flux
+- Twilio SMS API
+
 ## Design Docs
 * [DB schema][schema]
 

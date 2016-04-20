@@ -6,8 +6,8 @@ Messages are parsed and analyzed to trigger conversation workflows that
 can either write to or query from the database.  Users will then be able
 to view analytics created from their data through the web-app. Create or
 modify conversation workflows using the admin tools and attach triggers to
-hook into them from the existing decision tree.  The goal is to make this
-tool flexible to build enough for other use cases.
+hook them into the existing decision tree.  The goal is to build a
+flexible tool to be able to deploy chat bots for other use cases.
 
 Features (MVP)
 ----------

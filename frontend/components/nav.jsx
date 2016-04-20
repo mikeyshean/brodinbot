@@ -4,17 +4,11 @@ var ClientActions = require('../actions/client_actions');
 var AppConstants = require('../constants/app_constants');
 
 var Nav = React.createClass({
-  getInitialState: function () {
-    return { selectedItem: AppConstants.WORKFLOWS }
-  },
   handleSelection: function(selectedItem) {
-    if (this.state.selectedItem !== selectedItem) {
-      this.setState({selectedItem: selectedItem});
-      this.props.changeSelection(selectedItem);
-    }
+    ClientActions.selectNavItem(selectedItem);
   },
   render: function() {
-    var selectedItem = this.state.selectedItem;
+    var selectedItem = this.props.navSelection;
     return (
       <ul>
         <li id="workflows" className={ selectedItem === AppConstants.WORKFLOWS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.WORKFLOWS)}>Workflows</li>

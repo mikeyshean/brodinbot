@@ -5,6 +5,7 @@ var AppConstants = keyMirror({
   TRIGGERS: null,
   WORKFLOWS_RECEIVED: null,
   TRIGGERS_RECEIVED: null,
+  NAV_SELECTED: null,
 })
 
 module.exports = AppConstants

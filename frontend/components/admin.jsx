@@ -1,22 +1,28 @@
 var React = require('react');
 var Nav = require('./nav');
 var Index = require('./index');
+var ClientActions = require('../actions/client_actions');
 var AppConstants = require('../constants/app_constants');
+var ApplicationStore = require('../stores/application');
 
 var Admin = React.createClass({
   getInitialState: function () {
-    return { index: AppConstants.WORKFLOWS }
+    return { navSelection: AppConstants.WORKFLOWS }
   },
-  changeSelection: function (selectedOption) {
-    if (this.state.index !== selectedOption) {
-      this.setState({index: selectedOption});
-    }
+  componentDidMount: function () {
+    this.listener = ApplicationStore.addListener(this._appChanged);
+  },
+  componentWillUnmount: function () {
+    this.listener.remove();
+  },
+  _appChanged: function () {
+    this.replaceState(ApplicationStore.state())
   },
   render: function() {
     return (
       <div>
-        <Nav changeSelection={this.changeSelection}/>
-        <Index selectedIndex={this.state.index}/>
+        <Nav navSelection={this.state.navSelection}/>
+        <Index index={this.state.navSelection}/>
       </div>
     );
   }

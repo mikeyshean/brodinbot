@@ -20,7 +20,7 @@ var Admin = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div className="col-m-12">
         <Nav navSelection={this.state.navSelection}/>
         <Index index={this.state.navSelection}/>
       </div>

@@ -1,7 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Index = require('./components/index');
+var Admin = require('./components/admin');
 
 document.addEventListener("DOMContentLoaded", function () {
-  ReactDOM.render(<Index />, document.getElementById('app'));
+  ReactDOM.render(
+    <Admin />,
+    document.getElementById('app')
+  );
 });

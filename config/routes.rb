@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :workflows, only: [:index, :create]
+    resources :triggers, only: [:index, :create]
   end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

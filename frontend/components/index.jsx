@@ -1,31 +1,23 @@
 var React = require('react');
-var WorkflowStore = require('../stores/workflow');
-var ClientActions = require('../actions/client_actions');
+var AppConstants = require('../constants/app_constants');
+var Workflows = require('../components/workflows');
+var Triggers = require('../components/triggers');
 
 var Index = React.createClass({
   getInitialState: function () {
-    return { workflows: WorkflowStore.all() }
+    return { selectedIndex: this.props.selectedIndex }
   },
-  componentDidMount: function () {
-    WorkflowStore.addListener(this.__workflowsChanged)
-    ClientActions.fetchWorkflows();
-  },
-  __workflowsChanged: function () {
-    this.setState({workflows: WorkflowStore.all()})
-  },
-  render: function(){
-    var workflows = this.state.workflows;
-    var keys = Object.keys(workflows)
-
-    var workflowItems = keys.map(function(key) {
-      return <li key={key}>{workflows[key].name}</li>
-    })
+  render: function() {
+    var selectedIndex = this.props.selectedIndex
+    var index;
+    if (selectedIndex == AppConstants.WORKFLOWS) {
+      index = <Workflows />
+    } else if (selectedIndex == AppConstants.TRIGGERS) {
+      index = <Triggers />
+    }
 
     return (
-      <ul>
-        { workflowItems }
-      </ul>
-
+      index
     );
   }
 });

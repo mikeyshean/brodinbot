@@ -8,6 +8,12 @@ ServerActions = {
       workflows: workflows
     });
   },
+  receiveWorkflow: function (workflow) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.WORKFLOW_RECEIVED,
+      workflow: workflow
+    });
+  },
   receiveAllTriggers: function (triggers) {
     AppDispatcher.dispatch({
       actionType: AppConstants.TRIGGERS_RECEIVED,

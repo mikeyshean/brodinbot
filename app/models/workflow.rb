@@ -33,4 +33,31 @@ class Workflow < ActiveRecord::Base
     WorkflowResponse.find_by(workflow_id: id, version: version, parent_id: nil)
   end
 
+  def self.build_tree(id, version)
+    workflow_responses = WorkflowResponse.includes(:trigger, :actionable)
+      .where(workflow_id: id, version: version).order(:parent_id, :trigger_id).to_a
+
+    queue = []
+    node_map = {}
+    root = workflow_responses.pop
+
+    unless root.nil?
+      root = root.to_node
+      queue << root
+    end
+
+    until queue.empty?
+      node = queue.shift
+      workflow_response = workflow_responses.first
+      while !workflow_response.nil? && workflow_response.parent_id === node['id']
+        workflow_response = workflow_responses.shift
+        new_node = workflow_response.to_node
+        queue << new_node
+        node['children'] << new_node
+        workflow_response = workflow_responses.first
+      end
+    end
+    root
+  end
+
 end

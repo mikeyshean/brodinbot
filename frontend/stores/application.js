@@ -7,10 +7,13 @@ var ApplicationStore = new Store(AppDispatcher);
 ApplicationStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case AppConstants.NAV_SELECTED:
-      var navSelection = payload.navSelection
-      _application['navSelection'] = navSelection;
+      _application['navSelection'] = payload.navSelection;
       ApplicationStore.__emitChange();
       break;
+
+    case AppConstants.WORKFLOW_RECEIVED:
+      _application['editorData'] = payload.workflow;
+      ApplicationStore.__emitChange();
   }
 }
 

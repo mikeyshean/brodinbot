@@ -16,13 +16,17 @@ var Workflows = React.createClass({
   __workflowsChanged: function () {
     this.setState({workflows: WorkflowStore.all()})
   },
+  loadWorkflow: function(id, version) {
+    ClientActions.fetchWorkflow(id, version);
+  },
   render: function(){
     var workflows = this.state.workflows;
     var keys = Object.keys(workflows)
 
     var workflowItems = keys.map(function(key) {
-      return <li key={key}>{workflows[key].name}</li>
-    })
+      var workflow = workflows[key];
+      return <li key={key} onClick={this.loadWorkflow.bind(this, workflow.id, workflow.current_version)}>{workflow.name}</li>
+    }.bind(this))
 
     return (
       <ul>

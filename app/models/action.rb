@@ -35,4 +35,12 @@ class Action < ActiveRecord::Base
     end
     result
   end
+
+  def to_node
+    json = {}
+    json['id'] = id
+    json['method'] = method
+
+    return json
+  end
 end

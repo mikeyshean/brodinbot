@@ -21,4 +21,12 @@ class Response < ActiveRecord::Base
   def has_action?
     !action_id.nil?
   end
+
+  def to_node
+    json = {}
+    json['id'] = id
+    json['body'] = body
+
+    return json
+  end
 end

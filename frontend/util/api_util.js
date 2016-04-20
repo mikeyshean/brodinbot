@@ -6,6 +6,13 @@ ApiUtil = {
       ServerActions.receiveAllWorkflows(workflows);
     });
   },
+  fetchWorkflow: function(id,version){
+    var url = 'api/workflows/'+id+"?version="+version;
+    
+    $.get(url, function(workflow) {
+      ServerActions.receiveWorkflow(workflow);
+    });
+  },
   fetchTriggers: function(){
     $.get('api/triggers', function(triggers) {
       ServerActions.receiveAllTriggers(triggers);

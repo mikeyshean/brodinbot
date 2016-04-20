@@ -30,8 +30,18 @@ class WorkflowResponse < ActiveRecord::Base
     return response_words.join(' ')
   end
 
-
   def terminates?
     self.terminates
+  end
+
+  def to_node
+    json = {}
+    json['id'] = self.id
+    json['trigger'] = trigger ? trigger.to_node : nil
+    json['actionable_type'] = self.actionable_type
+    json['actionable'] = self.actionable.to_node
+    json['children'] = []
+
+    return json
   end
 end

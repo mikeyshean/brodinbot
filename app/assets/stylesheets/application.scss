@@ -30,6 +30,10 @@ html, body, header, nav, section, div, ul, li, a, p, h1, h2, h3, h4, button, for
   background: transparent;
 }
 
+html, body, #app {
+  height: 100%;
+}
+
 header {
   width: 100%;
   height: 46px;
@@ -40,8 +44,6 @@ header {
 
 body {
   background: #f2f2f2;
-  overflow-y: scroll;
-  padding-bottom: 75px;
   letter-spacing: .3px;
   font-family: "Roboto", "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
 }
@@ -55,3 +57,13 @@ input, textarea {
   box-shadow: none;
   border: 0;
 }
+
+#app {
+  padding: 20px 0;
+}
+
+.row {
+  margin: 0;
+}
+
+@import "menus";

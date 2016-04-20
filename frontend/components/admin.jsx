@@ -19,8 +19,11 @@ var Admin = React.createClass({
     this.replaceState(ApplicationStore.state())
   },
   render: function() {
+    styles = {
+      height: '100%'
+    }
     return (
-      <div className="col-m-12">
+      <div className="row" style={styles}>
         <Nav navSelection={this.state.navSelection}/>
         <Index index={this.state.navSelection}/>
       </div>

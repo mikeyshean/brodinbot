@@ -19,7 +19,7 @@ var Index = React.createClass({
     }
 
     return (
-      <div className="col-sm-2">
+      <div className="col-sm-2 vertical-list">
         {indexComponent}
       </div>
     );

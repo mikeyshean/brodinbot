@@ -4,8 +4,8 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ClientActions = {
   fetchWorkflows: ApiUtil.fetchWorkflows,
-  fetchWorkflow: function(id, version) {
-    ApiUtil.fetchWorkflow(id, version)
+  fetchTree: function(id, version) {
+    ApiUtil.fetchTree(id, version)
   },
   fetchTriggers: ApiUtil.fetchTriggers,
   selectNavItem: function (navSelection) {

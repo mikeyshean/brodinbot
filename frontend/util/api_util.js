@@ -6,11 +6,11 @@ ApiUtil = {
       ServerActions.receiveAllWorkflows(workflows);
     });
   },
-  fetchWorkflow: function(id,version){
+  fetchTree: function(id,version){
     var url = 'api/workflows/'+id+"?version="+version;
-    
-    $.get(url, function(workflow) {
-      ServerActions.receiveWorkflow(workflow);
+
+    $.get(url, function(tree) {
+      ServerActions.receiveTree(tree);
     });
   },
   fetchTriggers: function(){

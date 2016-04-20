@@ -8,10 +8,10 @@ ServerActions = {
       workflows: workflows
     });
   },
-  receiveWorkflow: function (workflow) {
+  receiveTree: function (tree) {
     AppDispatcher.dispatch({
-      actionType: AppConstants.WORKFLOW_RECEIVED,
-      workflow: workflow
+      actionType: AppConstants.TREE_RECEIVED,
+      tree: tree
     });
   },
   receiveAllTriggers: function (triggers) {

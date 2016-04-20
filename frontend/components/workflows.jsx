@@ -17,7 +17,7 @@ var Workflows = React.createClass({
     this.setState({workflows: WorkflowStore.all()})
   },
   loadWorkflow: function(id, version) {
-    ClientActions.fetchWorkflow(id, version);
+    ClientActions.fetchTree(id, version);
   },
   render: function(){
     var workflows = this.state.workflows;

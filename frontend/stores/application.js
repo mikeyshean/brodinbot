@@ -1,7 +1,7 @@
 var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher');
 var AppConstants = require('../constants/app_constants');
-var _application = {};
+var _application = {'navSelection': AppConstants.WORKFLOWS};
 var ApplicationStore = new Store(AppDispatcher);
 
 ApplicationStore.__onDispatch = function (payload) {
@@ -11,8 +11,8 @@ ApplicationStore.__onDispatch = function (payload) {
       ApplicationStore.__emitChange();
       break;
 
-    case AppConstants.WORKFLOW_RECEIVED:
-      _application['editorData'] = payload.workflow;
+    case AppConstants.TREE_RECEIVED:
+      _application['treeData'] = payload.tree;
       ApplicationStore.__emitChange();
   }
 }

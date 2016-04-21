@@ -20,9 +20,9 @@ var Admin = React.createClass({
     this.replaceState(ApplicationStore.state())
   },
   render: function() {
-    styles = {
+    var styles = {
       height: '100%'
-    }
+    };
     var tree;
     if (this.state.treeData) {
       tree = <Tree tree={this.state.treeData} />

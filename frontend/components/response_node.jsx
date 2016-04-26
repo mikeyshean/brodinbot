@@ -5,19 +5,27 @@ var ResponseNode = React.createClass({
 
   render: function() {
     var responseName = "response";
-    var styles = {
-      border: '2px solid yellow'
-    };
 
     var children = this.props.childNodes;
     var childrenComponents = children.map(function(child) {
       return this.props.buildChildren(child);
     }.bind(this))
 
+    if (childrenComponents.length) {
+      childrenComponents = (
+        <ul>
+          {childrenComponents}
+        </ul>
+      );
+    }
+
     return (
-      <div className={responseName} style={styles}>
-        {childrenComponents}
-      </div>
+      <ul>
+        <li>
+          <a className={responseName}>Response</a>
+          {childrenComponents}
+        </li>
+      </ul>
     );
   }
 });

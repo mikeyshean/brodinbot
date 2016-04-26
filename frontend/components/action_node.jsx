@@ -5,19 +5,26 @@ var ActionNode = React.createClass({
 
   render: function() {
     var actionName = "action";
-    var styles = {
-      border: '2px solid green'
-    };
 
     var children = this.props.childNodes;
     var childrenComponents = children.map(function(child) {
       return this.props.buildChildren(child);
     }.bind(this))
 
+    if (childrenComponents.length) {
+      childrenComponents = (
+        <ul>
+          {childrenComponents}
+        </ul>
+      );
+    }
     return (
-      <div className={actionName} style={styles}>
-        {childrenComponents}
-      </div>
+      <ul>
+        <li>
+          <a className={actionName}>Action</a>
+          {childrenComponents}
+        </li>
+      </ul>
     );
   }
 });

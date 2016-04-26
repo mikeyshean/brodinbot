@@ -45,8 +45,10 @@ var Tree = React.createClass({
     var tree = this.buildChildren(root);
 
     return (
-      <div className="col-sm-8 vertical-list">
-        {tree}
+      <div className="tree">
+        <ul>
+          {tree}
+        </ul>
       </div>
     );
   }

@@ -58,6 +58,10 @@ input, textarea {
   border: 0;
 }
 
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
 #app {
   padding: 20px 0;
 }

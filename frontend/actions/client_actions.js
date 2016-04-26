@@ -4,6 +4,7 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ClientActions = {
   fetchWorkflows: ApiUtil.fetchWorkflows,
+  createWorkflow: ApiUtil.createWorkflow,
   fetchTree: function(id, version) {
     ApiUtil.fetchTree(id, version)
   },

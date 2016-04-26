@@ -1,4 +1,5 @@
 var React = require('react');
+var CreateWorkflow = require('../components/create_workflow')
 var WorkflowStore = require('../stores/workflow');
 var ClientActions = require('../actions/client_actions');
 
@@ -30,6 +31,9 @@ var Workflows = React.createClass({
 
     return (
       <ul>
+        <li>
+          <CreateWorkflow />
+        </li>
         { workflowItems }
       </ul>
 

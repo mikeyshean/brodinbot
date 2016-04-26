@@ -1,11 +1,19 @@
 var ServerActions = require('../actions/server_actions');
 
 ApiUtil = {
+
   fetchWorkflows: function(){
     $.get('api/workflows', function(workflows) {
       ServerActions.receiveAllWorkflows(workflows);
     });
   },
+
+  createWorkflow: function(data) {
+    $.post('api/workflows', {workflow: data}, function(workflow) {
+      ServerActions.receiveWorkflow(workflow);
+    });
+  },
+
   fetchTree: function(id,version){
     var url = 'api/workflows/'+id+"?version="+version;
 
@@ -13,6 +21,7 @@ ApiUtil = {
       ServerActions.receiveTree(tree);
     });
   },
+
   fetchTriggers: function(){
     $.get('api/triggers', function(triggers) {
       ServerActions.receiveAllTriggers(triggers);

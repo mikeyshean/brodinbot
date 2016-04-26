@@ -11,4 +11,20 @@ class Api::WorkflowsController < ApplicationController
     render json: @tree
   end
 
+  def create
+    @workflow = Workflow.new(workflow_params)
+
+    if @workflow.save
+      render json: @workflow
+    else
+      render json: {}, status: 422
+    end
+  end
+
+  private
+
+  def workflow_params
+    params.require(:workflow).permit(:name, :category, :is_active, :current_version)
+  end
+
 end

@@ -30,6 +30,13 @@ ServerActions = {
       triggers: triggers
     });
   },
+
+  receiveFormErrors: function (messages) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.FORM_ERRORS_RECEIVED,
+      messages: messages
+    })
+  },
 }
 
 module.exports = ServerActions;

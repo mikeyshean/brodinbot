@@ -8,6 +8,8 @@ var AppConstants = keyMirror({
   TREE_RECEIVED: null,
   TRIGGERS_RECEIVED: null,
   NAV_SELECTED: null,
+  FORM_ERRORS_RECEIVED: null,
+  FORM_ERRORS_CLEARED: null,
 })
 
 module.exports = AppConstants

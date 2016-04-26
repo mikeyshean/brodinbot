@@ -1,5 +1,6 @@
 class Workflow < ActiveRecord::Base
   validates :name, :is_active, presence: true
+  validates :name, uniqueness: true
   has_many :workflow_responses
   has_many :responses, through: :workflow_responses, source: :response
   belongs_to :parent, class_name: "Workflow", foreign_key: :parent_id

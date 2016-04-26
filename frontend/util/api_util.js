@@ -1,4 +1,5 @@
 var ServerActions = require('../actions/server_actions');
+var FormActions = require('../actions/form_actions');
 
 ApiUtil = {
 
@@ -11,6 +12,9 @@ ApiUtil = {
   createWorkflow: function(data) {
     $.post('api/workflows', {workflow: data}, function(workflow) {
       ServerActions.receiveWorkflow(workflow);
+      FormActions.clearFormErrors();
+    }).fail(function (resp) {
+      ServerActions.receiveFormErrors(resp.responseJSON.errors);
     });
   },
 

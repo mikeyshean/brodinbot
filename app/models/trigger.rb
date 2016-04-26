@@ -7,6 +7,7 @@ class Trigger < ActiveRecord::Base
     json = {}
     json['id'] = id
     json['category'] = category
-    json
+    
+    return json
   end
 end

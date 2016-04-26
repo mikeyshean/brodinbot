@@ -17,7 +17,7 @@ class Api::WorkflowsController < ApplicationController
     if @workflow.save
       render json: @workflow
     else
-      render json: {}, status: 422
+      render :json => { :errors => @workflow.errors.full_messages }, status: 422
     end
   end
 

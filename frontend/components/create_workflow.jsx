@@ -28,14 +28,14 @@ var CreateWorkflow = React.createClass({
   render: function() {
     var messages = this.state.errorMessages.map(function (msg) {
       return (
-        <li>{msg}</li>
+        <li key={msg}>{msg}</li>
       )
     })
     return (
       <form onSubmit={this.submitForm}>
         <div>
           <ul>
-            {messages}            
+            {messages}
           </ul>
         </div>
         <input type="text"

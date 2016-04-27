@@ -2,14 +2,17 @@
   cursor: default;
 
   li {
-    padding: 5px;
-    margin-bottom: 5px;
+    padding: 10px;
     position: relative;
   }
 
   li:hover, li.selected {
-    color: #ecebe8;
+    color: $hover_color;
     text-decoration: none;
+
+    span {
+      color: $default_font_color;
+    }
   }
 
   li .glyphicon-remove {
@@ -17,6 +20,10 @@
     right: 0;
     bottom: 50%;
     @include translateY(50%);
+
+    &:hover {
+      color: $hover_color;
+    }
   }
 
   a:hover {

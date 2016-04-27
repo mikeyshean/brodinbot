@@ -16,6 +16,10 @@
 @import "bootstrap";
 @import "mixins";
 
+$default_font_color: #828282;
+$default_bg_color: #1E1E1E;
+$hover_color: #ecebe8;
+
 html, body, header, nav, section, div, ul, li, a, p, h1, h2, h3, h4, button, form, input, strong, textarea {
   border: 0;
   margin: 0;
@@ -44,10 +48,10 @@ header {
 }
 
 body {
-  background: #1E1E1E;
+  background: $default_bg_color;
   letter-spacing: .3px;
   font-family: "Roboto","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
-  color: #828282;
+  color: $default_font_color;
   font-weight: 300;
   letter-spacing: 0.4px;
 }
@@ -97,13 +101,13 @@ input:focus::-webkit-input-placeholder {
 }
 
 #nav {
-  background: #1E1E1E;
+  background: $default_bg_color;
   width: 150px;
   position: absolute;
 }
 
 #index {
-  background: #1E1E1E;
+  background: $default_bg_color;
   width: 250px;
   position: absolute;
   left: 150px;

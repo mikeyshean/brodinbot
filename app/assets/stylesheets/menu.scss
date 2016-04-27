@@ -20,6 +20,7 @@
     right: 0;
     bottom: 50%;
     @include translateY(50%);
+    font-size: 18px;
 
     &:hover {
       color: $hover_color;

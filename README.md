@@ -1,6 +1,11 @@
 ChatBot (Fitness Tracker)
 ===================
 
+Live: [https://botchat.herokuapp.com/][heroku] (In Progress)
+
+[heroku]: https://botchat.herokuapp.com/
+
+
 Record your fitness data through an SMS chat interface.
 Messages are parsed and analyzed to trigger conversation workflows that
 can either write to or query from the database.  Users will then be able

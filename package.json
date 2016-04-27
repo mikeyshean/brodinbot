@@ -8,6 +8,7 @@
     "test": "test"
   },
   "scripts": {
+    "postinstall": "./node_modules/.bin/webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,8 +36,5 @@
   "engines": {
     "node": "5.4.0",
     "npm": "3.3.12"
-  },
-  "scripts": {
-    "postinstall": "./node_modules/.bin/webpack"
   }
 }

@@ -2,6 +2,7 @@ var React = require('react');
 var CreateWorkflow = require('../components/create_workflow')
 var WorkflowStore = require('../stores/workflow');
 var ClientActions = require('../actions/client_actions');
+var WorkflowItem = require('../components/workflow_item');
 
 var Workflows = React.createClass({
 
@@ -31,10 +32,10 @@ var Workflows = React.createClass({
 
     var workflowItems = keys.map(function(key) {
       var workflow = workflows[key];
-      var className = this.state.selectedId === workflow.id ? "selected" : null;
+      var isSelected = this.state.selectedId === workflow.id;
 
-      return <li key={key} className={className} onClick={this._handleSelection.bind(this, workflow.id, workflow.current_version)}><a>{workflow.name}</a></li>
-    }.bind(this))
+      return <WorkflowItem key={key} isSelected={isSelected} _handleSelection={this._handleSelection} workflow={workflow} />
+    }.bind(this));
 
     return (
       <div>

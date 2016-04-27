@@ -1,0 +1,8 @@
+
+@mixin translateY($dist) {
+  -ms-transform:translateY($dist);
+	-moz-transform:translateY($dist);
+	-webkit-transform:translateY($dist);
+	-o-transform:translateY($dist);
+  transform: translateY($dist)
+}

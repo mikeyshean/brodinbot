@@ -4,11 +4,19 @@
   li {
     padding: 5px;
     margin-bottom: 5px;
+    position: relative;
   }
 
   li:hover, li.selected {
     color: #ecebe8;
     text-decoration: none;
+  }
+
+  li .glyphicon-remove {
+    position: absolute;
+    right: 0;
+    bottom: 50%;
+    @include translateY(50%);
   }
 
   a:hover {

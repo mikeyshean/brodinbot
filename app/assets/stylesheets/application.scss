@@ -14,6 +14,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "mixins";
 
 html, body, header, nav, section, div, ul, li, a, p, h1, h2, h3, h4, button, form, input, strong, textarea {
   border: 0;
@@ -87,6 +88,11 @@ input:focus::-webkit-input-placeholder {
     border-bottom: 1px solid #828282;
     padding-bottom: 10px;
     margin-bottom: 30px;
+
+    input {
+      width: 80%;
+      margin-right: 12px;
+    }
   }
 }
 

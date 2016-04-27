@@ -17,6 +17,13 @@ ServerActions = {
     });
   },
 
+  deleteWorkflow: function (workflowId) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.WORKFLOW_DELETED,
+      workflowId: workflowId
+    })
+  },
+
   receiveTree: function (tree) {
     AppDispatcher.dispatch({
       actionType: AppConstants.TREE_RECEIVED,

@@ -21,6 +21,13 @@ class Api::WorkflowsController < ApplicationController
     end
   end
 
+  def destroy
+    @workflow = Workflow.find(params[:id])
+    @workflow.destroy
+
+    render json: {}, status: 200
+  end
+
   private
 
   def workflow_params

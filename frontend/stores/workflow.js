@@ -15,6 +15,19 @@ WorkflowStore.__onDispatch = function (payload) {
     case AppConstants.WORKFLOW_RECEIVED:
       _workflows.push(payload.workflow);
       WorkflowStore.__emitChange();
+      break;
+
+    case AppConstants.WORKFLOW_DELETED:
+      var index;
+      for (var i = 0; i < _workflows.length; i++) {
+        if (_workflows[i].id === payload.workflowId) {
+          index = i;
+          break;
+        }
+      }
+      _workflows.splice(index, 1);
+      WorkflowStore.__emitChange();
+      break;
   }
 }
 

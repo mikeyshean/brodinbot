@@ -17,7 +17,7 @@ var WorkflowItem = React.createClass({
 
     var hoverX;
     if (this.state.isHovered) {
-      hoverX = <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      hoverX = <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this._deleteWorkflow}></span>
     }
 
     return (
@@ -38,6 +38,12 @@ var WorkflowItem = React.createClass({
       this.setState({isHovered: true})
     } else {
       this.setState({isHovered: false})
+    }
+  },
+
+  _deleteWorkflow: function () {
+    if (window.confirm("Do you really want to delete this workflow?")) {
+      ClientActions.deleteWorkflow(this.props.workflow.id);
     }
   }
 

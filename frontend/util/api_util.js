@@ -18,6 +18,12 @@ ApiUtil = {
     });
   },
 
+  deleteWorkflow: function(id) {
+    $.delete('api/workflows/'+id, function() {
+      ServerActions.deleteWorkflow(id);
+    })
+  },
+
   fetchTree: function(id,version){
     var url = 'api/workflows/'+id+"?version="+version;
 

@@ -4,8 +4,6 @@ var AppConstants = require('../constants/app_constants');
 var ResponseNode = React.createClass({
 
   render: function() {
-    var responseName = "response";
-
     var children = this.props.childNodes;
     var childrenComponents = children.map(function(child) {
       return this.props.buildChildren(child);
@@ -21,8 +19,8 @@ var ResponseNode = React.createClass({
 
     return (
       <ul>
-        <li>
-          <a className={responseName}>{"\""+this.props.body+"\""}</a>
+        <li className="response">
+          <a>{"\""+this.props.body+"\""}</a>
           {childrenComponents}
         </li>
       </ul>

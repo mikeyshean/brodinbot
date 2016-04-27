@@ -4,8 +4,6 @@ var AppConstants = require('../constants/app_constants');
 var ActionNode = React.createClass({
 
   render: function() {
-    var actionName = "action";
-
     var children = this.props.childNodes;
     var childrenComponents = children.map(function(child) {
       return this.props.buildChildren(child);
@@ -20,8 +18,8 @@ var ActionNode = React.createClass({
     }
     return (
       <ul>
-        <li>
-          <a className={actionName}>{this.props.method}</a>
+        <li className="action">
+          <a>{this.props.method}</a>
           {childrenComponents}
         </li>
       </ul>

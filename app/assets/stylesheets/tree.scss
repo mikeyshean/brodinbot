@@ -75,12 +75,12 @@
     text-decoration: none;
     color: #666;
     font-family: arial, verdana, tahoma;
-    font-size: 11px;
+    font-size: 14px;
     display: inline-block;
 
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
 
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -91,10 +91,7 @@
     background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
   }
 
-  .trigger > a {
-    background: white;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
+  .response > a {
+    background: #fff;
   }
 }

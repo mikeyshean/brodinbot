@@ -19,7 +19,7 @@ var Index = React.createClass({
     }
 
     return (
-      <div className="col-sm-2 pane">
+      <div id="index" className="pane">
         {indexComponent}
       </div>
     );

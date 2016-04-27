@@ -69,6 +69,11 @@ input:focus::-webkit-input-placeholder {
   padding: 20px 0;
 }
 
+#app-wrapper {
+  position: relative;
+  height: 100%;
+}
+
 .row {
   margin: 0;
 }
@@ -79,8 +84,24 @@ input:focus::-webkit-input-placeholder {
   border: 1px solid black;
 }
 
+#nav {
+  background: #1E1E1E;
+  width: 150px;
+  position: absolute;
+}
+
+#index {
+  background: #1E1E1E;
+  width: 250px;
+  position: absolute;
+  left: 150px;
+}
+
 #editor {
   background: #131313;
+  width: 100%;
+  padding-left: 420px;
+
 }
 
 @import "menus";

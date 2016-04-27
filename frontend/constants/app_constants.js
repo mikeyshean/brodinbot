@@ -3,6 +3,9 @@ var keyMirror = require('keymirror');
 var AppConstants = keyMirror({
   WORKFLOWS: null,
   TRIGGERS: null,
+  USERS: null,
+  USERS_RECEIVED: null,
+  USER_DELETED: null,
   WORKFLOWS_RECEIVED: null,
   WORKFLOW_RECEIVED: null,
   WORKFLOW_DELETED: null,

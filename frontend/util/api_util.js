@@ -3,6 +3,18 @@ var FormActions = require('../actions/form_actions');
 
 ApiUtil = {
 
+  fetchUsers: function(){
+    $.get('api/users', function(users) {
+      ServerActions.receiveAllUsers(users);
+    });
+  },
+
+  deleteUser: function(id) {
+    $.delete('api/users/'+id, function() {
+      ServerActions.deleteUser(id);
+    })
+  },
+
   fetchWorkflows: function(){
     $.get('api/workflows', function(workflows) {
       ServerActions.receiveAllWorkflows(workflows);

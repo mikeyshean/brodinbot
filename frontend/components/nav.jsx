@@ -14,6 +14,7 @@ var Nav = React.createClass({
         <ul className="menu">
           <li id="workflows" className={ selectedItem === AppConstants.WORKFLOWS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.WORKFLOWS)}><a>Workflows</a></li>
           <li id="triggers" className={ selectedItem === AppConstants.TRIGGERS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.TRIGGERS)}><a>Triggers</a></li>
+          <li id="users" className={ selectedItem === AppConstants.USERS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.USERS)}><a>Users</a></li>
         </ul>
       </div>
     );

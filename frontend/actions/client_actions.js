@@ -3,6 +3,9 @@ var AppConstants = require('../constants/app_constants');
 var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ClientActions = {
+  fetchUsers: ApiUtil.fetchUsers,
+
+  deleteUser: ApiUtil.deleteUser,
 
   fetchWorkflows: ApiUtil.fetchWorkflows,
 

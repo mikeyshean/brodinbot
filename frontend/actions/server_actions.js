@@ -3,6 +3,20 @@ var AppConstants = require('../constants/app_constants');
 
 ServerActions = {
 
+  receiveAllUsers: function (users) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.USERS_RECEIVED,
+      users: users
+    });
+  },
+
+  deleteUser: function (userId) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.USER_DELETED,
+      userId: userId
+    });
+  },
+
   receiveAllWorkflows: function (workflows) {
     AppDispatcher.dispatch({
       actionType: AppConstants.WORKFLOWS_RECEIVED,

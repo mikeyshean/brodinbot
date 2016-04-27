@@ -1,7 +1,7 @@
 var React = require('react');
 var ClientActions = require('../actions/client_actions');
 
-var WorkflowItem = React.createClass({
+var UserItem = React.createClass({
 
   getInitialState: function () {
     return {
@@ -10,25 +10,25 @@ var WorkflowItem = React.createClass({
   },
 
   render: function() {
-    var workflow = this.props.workflow
+    var user = this.props.user
     var className = this.props.isSelected ? "selected" : null;
 
     var hoverX;
     if (this.state.isHovered) {
-      hoverX = <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this._deleteWorkflow}></span>
+      hoverX = <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this._deleteUser}></span>
     }
 
     return (
       <li className={className} onClick={this._handleClick} onMouseEnter={this._handleHover.bind(this, true)} onMouseLeave={this._handleHover.bind(this, false)} >
-        <a>{workflow.name}</a>
+        <a>{user.name_full}<br/>{user.phone_number.replace(/(\d{4}$)/, "XXXX")}</a>
         {hoverX}
       </li>
     );
   },
 
   _handleClick: function () {
-    var workflow = this.props.workflow;
-    this.props._handleSelection(workflow.id, workflow.current_version);
+    var user = this.props.user;
+    this.props._handleSelection(user.id);
   },
 
   _handleHover: function (mouseEnter) {
@@ -39,12 +39,12 @@ var WorkflowItem = React.createClass({
     }
   },
 
-  _deleteWorkflow: function () {
-    if (window.confirm("Do you really want to delete this workflow?")) {
-      ClientActions.deleteWorkflow(this.props.workflow.id);
+  _deleteUser: function () {
+    if (window.confirm("Do you really want to delete this user?")) {
+      ClientActions.deleteUser(this.props.user.id);
     }
   }
 
 });
 
-module.exports = WorkflowItem;
+module.exports = UserItem;

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/twilio" => "twilio#receiveSMS"
 
   namespace :api, defaults: { format: :json } do
+    resources :users, only: [:index, :destroy, :show]
     resources :workflows, only: [:index, :create, :destroy, :show]
     resources :triggers, only: [:index, :create]
   end

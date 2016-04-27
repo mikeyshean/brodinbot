@@ -1,4 +1,4 @@
-BrodinBot
+ChatBot (Fitness Tracker)
 ===================
 
 Record your fitness data through an SMS chat interface.

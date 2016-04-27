@@ -1,7 +1,7 @@
 var path = require('path');
 module.exports = {
   context: __dirname,
-  entry: path.join(__dirname, 'frontend', 'BrodinBot.jsx'),
+  entry: path.join(__dirname, 'frontend', 'ChatBot.jsx'),
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
     filename: "bundle.js"

@@ -1,7 +1,7 @@
 {
-  "name": "BrodinBot",
+  "name": "ChatBot",
   "version": "1.0.0",
-  "description": "BrodinBot ===================",
+  "description": "ChatBot ===================",
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikeyshean/brodinbot.git"
+    "url": "git+https://github.com/mikeyshean/chatbot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mikeyshean/brodinbot/issues"
+    "url": "https://github.com/mikeyshean/chatbot/issues"
   },
-  "homepage": "https://github.com/mikeyshean/brodinbot#readme",
+  "homepage": "https://github.com/mikeyshean/chatbot#readme",
   "dependencies": {
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",

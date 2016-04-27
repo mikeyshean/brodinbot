@@ -34,13 +34,15 @@ var CreateWorkflow = React.createClass({
     return (
       <form onSubmit={this.submitForm}>
         <div>
-          {messages}
+          <ul>
+            {messages}            
+          </ul>
         </div>
         <input type="text"
           id="workflow-name"
           name="name"
           value={this.state.name}
-          placeholder="Workflow name..."
+          placeholder="Create workflow..."
           onChange={this._handleChange}
         />
         <button>Add</button>

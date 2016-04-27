@@ -21,11 +21,11 @@ var Triggers = React.createClass({
     var keys = Object.keys(triggers)
 
     var triggerItems = keys.map(function(key) {
-      return <li key={key}>{triggers[key].category}</li>
+      return <li key={key}><a>{triggers[key].category}</a></li>
     })
 
     return (
-      <ul>
+      <ul className="menu">
         { triggerItems }
       </ul>
 

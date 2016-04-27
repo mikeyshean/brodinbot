@@ -31,7 +31,7 @@ var Admin = React.createClass({
       <div className="row" style={styles}>
         <Nav navSelection={this.state.navSelection}/>
         <Index index={this.state.navSelection}/>
-        <div className="col-sm-8 vertical-list">
+        <div className="col-sm-8 pane" id="editor">
           {tree}
         </div>
       </div>

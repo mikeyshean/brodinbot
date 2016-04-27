@@ -26,11 +26,11 @@ var Workflows = React.createClass({
 
     var workflowItems = keys.map(function(key) {
       var workflow = workflows[key];
-      return <li key={key} onClick={this.loadWorkflow.bind(this, workflow.id, workflow.current_version)}>{workflow.name}</li>
+      return <li key={key} onClick={this.loadWorkflow.bind(this, workflow.id, workflow.current_version)}><a>{workflow.name}</a></li>
     }.bind(this))
 
     return (
-      <ul>
+      <ul className="menu">
         <li>
           <CreateWorkflow />
         </li>

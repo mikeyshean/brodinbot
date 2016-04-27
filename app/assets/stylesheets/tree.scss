@@ -90,4 +90,11 @@
   li a:hover {
     background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
   }
+
+  .trigger > a {
+    background: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+  }
 }

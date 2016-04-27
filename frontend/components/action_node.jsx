@@ -21,7 +21,7 @@ var ActionNode = React.createClass({
     return (
       <ul>
         <li>
-          <a className={actionName}>Action</a>
+          <a className={actionName}>{this.props.method}</a>
           {childrenComponents}
         </li>
       </ul>

@@ -1,6 +1,8 @@
+.menu {
+  cursor: default;
 
-.vertical-list {
-  height: 100%;
-  padding: 20px;
-  border: 1px solid black;
+  a:hover {
+    color: #ecebe8;
+    text-decoration: none;
+  }
 }

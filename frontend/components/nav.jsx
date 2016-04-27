@@ -10,10 +10,10 @@ var Nav = React.createClass({
   render: function() {
     var selectedItem = this.props.navSelection;
     return (
-      <div className="col-sm-1 vertical-list">
-        <ul>
-          <li id="workflows" className={ selectedItem === AppConstants.WORKFLOWS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.WORKFLOWS)}>Workflows</li>
-          <li id="triggers" className={ selectedItem === AppConstants.TRIGGERS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.TRIGGERS)}>Triggers</li>
+      <div className="col-sm-1 pane">
+        <ul className="menu">
+          <li id="workflows" className={ selectedItem === AppConstants.WORKFLOWS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.WORKFLOWS)}><a>Workflows</a></li>
+          <li id="triggers" className={ selectedItem === AppConstants.TRIGGERS ? "selected" : "" } onClick={this.handleSelection.bind(this, AppConstants.TRIGGERS)}><a>Triggers</a></li>
         </ul>
       </div>
     );

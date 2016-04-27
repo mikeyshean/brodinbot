@@ -3,11 +3,9 @@ var AppConstants = require('../constants/app_constants');
 
 var TriggerNode = React.createClass({
   render: function() {
-    var triggerName = "trigger";
-
     return (
-      <li className={triggerName}>
-        <a>Trigger</a>
+      <li className="trigger">
+        <a>{this.props.category}</a>
         {this.props.children}
       </li>
 

@@ -22,7 +22,7 @@ var ResponseNode = React.createClass({
     return (
       <ul>
         <li>
-          <a className={responseName}>Response</a>
+          <a className={responseName}>{"\""+this.props.body+"\""}</a>
           {childrenComponents}
         </li>
       </ul>

@@ -3,7 +3,7 @@ class UserWorkflow < ActiveRecord::Base
 
   has_many :workflow_responses, -> (object){ where("version = ?", object.version)}, through: :workflow
   belongs_to :workflow
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   belongs_to :workflow_response
   belongs_to :message
 

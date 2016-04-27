@@ -52,6 +52,13 @@ ServerActions = {
     });
   },
 
+  deleteTrigger: function (triggerId) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.TRIGGER_DELETED,
+      triggerId: triggerId
+    })
+  },
+
   receiveFormErrors: function (messages) {
     AppDispatcher.dispatch({
       actionType: AppConstants.FORM_ERRORS_RECEIVED,

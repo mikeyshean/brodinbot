@@ -11,6 +11,7 @@ var AppConstants = keyMirror({
   WORKFLOW_DELETED: null,
   TREE_RECEIVED: null,
   TRIGGERS_RECEIVED: null,
+  TRIGGER_DELETED: null,
   NAV_SELECTED: null,
   FORM_ERRORS_RECEIVED: null,
   FORM_ERRORS_CLEARED: null,

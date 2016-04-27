@@ -16,6 +16,8 @@ var ClientActions = {
   fetchTree: ApiUtil.fetchTree,
 
   fetchTriggers: ApiUtil.fetchTriggers,
+  
+  deleteTrigger: ApiUtil.deleteTrigger,
 
   selectNavItem: function (navSelection) {
     AppDispatcher.dispatch({

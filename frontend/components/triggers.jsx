@@ -1,6 +1,7 @@
 var React = require('react');
 var TriggerStore = require('../stores/trigger');
 var ClientActions = require('../actions/client_actions');
+var TriggerItem = require('../components/trigger_item');
 
 var Triggers = React.createClass({
 
@@ -30,9 +31,9 @@ var Triggers = React.createClass({
 
     var triggerItems = keys.map(function(key) {
       var trigger = triggers[key];
-      var className = this.state.selectedId === trigger.id ? "selected" : null;
+      var isSelected = this.state.selectedId === trigger.id;
 
-      return <li key={key} className={className} onClick={this._handleSelection.bind(this, trigger.id)}><a>{trigger.category}</a></li>
+      return <TriggerItem key={key} isSelected={isSelected} _handleSelection={this._handleSelection} trigger={trigger} />
     }.bind(this))
 
     return (

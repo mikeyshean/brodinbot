@@ -48,7 +48,13 @@ ApiUtil = {
     $.get('api/triggers', function(triggers) {
       ServerActions.receiveAllTriggers(triggers);
     });
-  }
+  },
+
+  deleteTrigger: function(id) {
+    $.delete('api/triggers/'+id, function() {
+      ServerActions.deleteTrigger(id);
+    })
+  },
 }
 
 module.exports = ApiUtil;

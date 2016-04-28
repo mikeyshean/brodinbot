@@ -26,7 +26,7 @@ var ResponseNode = React.createClass({
       editIcons = (
         <div className="icon-wrapper">
           <span className="glyphicon glyphicon-plus node-icon"></span>
-          <span className="glyphicon glyphicon-pencil node-icon"></span>
+          <span className="glyphicon glyphicon-wrench node-icon"></span>
         </div>
       )
     }

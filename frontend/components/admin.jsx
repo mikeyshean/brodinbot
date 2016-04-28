@@ -20,18 +20,13 @@ var Admin = React.createClass({
     this.replaceState(ApplicationStore.state())
   },
   render: function() {
-    var tree;
     
-    if (this.state.treeData) {
-      tree = <Tree tree={this.state.treeData} />
-    }
-
     return (
       <div id="app-wrapper">
         <Nav navSelection={this.state.navSelection}/>
         <Index index={this.state.navSelection}/>
         <div className="pane" id="editor">
-          {tree}
+          <Tree tree={this.state.treeData} />
         </div>
       </div>
     );

@@ -45,7 +45,6 @@ var Tree = React.createClass({
 
     var tree = this.buildChildren(this.props.tree);
 
-
     return (
       <div className="tree">
         <ul>

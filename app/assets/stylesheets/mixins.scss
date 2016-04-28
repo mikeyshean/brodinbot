@@ -6,3 +6,11 @@
 	-o-transform:translateY($dist);
   transform: translateY($dist)
 }
+
+@mixin translateX($dist) {
+  -ms-transform:translateX($dist);
+	-moz-transform:translateX($dist);
+	-webkit-transform:translateX($dist);
+	-o-transform:translateX($dist);
+  transform: translateX($dist)
+}

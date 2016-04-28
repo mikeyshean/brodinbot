@@ -79,6 +79,7 @@
     display: inline-block;
     background: #fff;
     cursor: default;
+    position: relative;
 
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -90,6 +91,25 @@
   }
 
   li a:hover {
-    background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+    color: #fff;
+  }
+
+  .icon-wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 0;
+    color: #666 !important;
+  }
+  .node-icon {
+    position: absolute;
+    top: -15px;
+
+    &:first-child {
+      right: 30px;
+    }
+
+    &:last-child {
+      left: 30px;
+    }
   }
 }

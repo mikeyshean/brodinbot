@@ -16,6 +16,7 @@ var AppConstants = keyMirror({
   FORM_ERRORS_RECEIVED: null,
   FORM_ERRORS_CLEARED: null,
   WORKFLOW_RESPONSE_RECEIVED: null,
+  WORKFLOW_RESPONSE_DELETED: null,
 })
 
 module.exports = AppConstants

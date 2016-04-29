@@ -8,6 +8,7 @@ var NodeIcons = React.createClass({
       <div className="icon-wrapper">
         <span className="glyphicon glyphicon-plus node-icon" onClick={this.props.newWorkflowResponse}></span>
         <span className="glyphicon glyphicon-wrench node-icon"></span>
+        <span className="glyphicon glyphicon-remove node-icon" onClick={this.props.deleteWorkflowResponse}></span>
       </div>
     );
   }

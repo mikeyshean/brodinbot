@@ -10,7 +10,7 @@ var ActionNode = React.createClass({
   },
 
   render: function() {
-    var children = this.props.workflow.children;
+    var children = this.props.workflowResponse.children;
     var childrenComponents = children.map(function(child) {
       return this.props.buildChildren(child);
     }.bind(this))
@@ -25,7 +25,12 @@ var ActionNode = React.createClass({
 
     var nodeIcons;
     if (this.state.isHovered) {
-      nodeIcons = <NodeIcons newWorkflowResponse={this._newWorkflowResponse} />
+      nodeIcons = (
+        <NodeIcons
+          newWorkflowResponse={this._newWorkflowResponse}
+          deleteWorkflowResponse={this._deleteWorkflowResponse}
+        />
+      )
     }
 
     return (
@@ -50,12 +55,19 @@ var ActionNode = React.createClass({
   },
 
   _newWorkflowResponse: function () {
-    var workflow = this.props.workflow;
+    var workflowResponse = this.props.workflowResponse;
     ClientActions.createWorkflowResponse(
-      workflow.id,
-      workflow.workflow_id,
-      workflow.version
+      workflowResponse.id,
+      workflowResponse.workflow_id,
+      workflowResponse.version
     );
+  },
+
+  _deleteWorkflowResponse: function () {
+    var workflowResponse = this.props.workflowResponse;
+    if (window.confirm("Do you really want to delete this workflow item AND all children items?")) {
+      ClientActions.deleteWorkflowResponse(workflowResponse);
+    }
   }
 });
 

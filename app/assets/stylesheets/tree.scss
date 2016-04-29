@@ -112,11 +112,16 @@
     font-size: 18px;
 
     &:first-child {
-      right: 30px;
+      right: 25px;
+    }
+
+    &:nth-child(even) {
+      right: 50%;
+      @include translateX(50%);
     }
 
     &:last-child {
-      left: 30px;
+      left: 25px;
     }
 
     &:hover {

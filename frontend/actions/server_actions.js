@@ -72,6 +72,13 @@ ServerActions = {
       workflowResponse: workflowResponse
     })
   },
+
+  deleteWorkflowResponse: function (workflowResponse) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.WORKFLOW_RESPONSE_DELETED,
+      workflowResponse: workflowResponse
+    })
+  },
 }
 
 module.exports = ServerActions;

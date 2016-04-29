@@ -21,6 +21,8 @@ var ClientActions = {
 
   createWorkflowResponse: ApiUtil.createWorkflowResponse,
 
+  deleteWorkflowResponse: ApiUtil.deleteWorkflowResponse,
+
   selectNavItem: function (navSelection) {
     AppDispatcher.dispatch({
       actionType: AppConstants.NAV_SELECTED,

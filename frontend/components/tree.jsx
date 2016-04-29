@@ -4,6 +4,7 @@ var TriggerNode = require('../components/trigger_node');
 var ResponseNode = require('../components/response_node');
 var ActionNode = require('../components/action_node');
 var NodeIcons = require('../components/node_icons');
+var ClientActions = require('../actions/client_actions');
 
 var Tree = React.createClass({
   buildChildren: function (node) {
@@ -17,14 +18,14 @@ var Tree = React.createClass({
     if (actionType === "Action") {
       actionComponent = <ActionNode
         key={node.id}
-        workflow={node}
+        workflowResponse={node}
         method={actionable.method}
         buildChildren={this.buildChildren}
         />
     } else if (actionType === "Response") {
       actionComponent = <ResponseNode
         key={node.id}
-        workflow={node}
+        workflowResponse={node}
         body={actionable.body}
         buildChildren={this.buildChildren}
         />
@@ -34,7 +35,7 @@ var Tree = React.createClass({
           <li className="select-actionable">
             <a>
               A
-              <NodeIcons />
+              <NodeIcons deleteWorkflowResponse={this._deleteWorkflowResponse.bind(this, node)}/>
             </a>
           </li>
         </ul>
@@ -64,6 +65,12 @@ var Tree = React.createClass({
         </ul>
       </div>
     );
+  },
+
+  _deleteWorkflowResponse: function (workflowResponse) {
+    if (window.confirm("Do you really want to delete this workflow item AND all children items?")) {
+      ClientActions.deleteWorkflowResponse(workflowResponse);
+    }
   }
 });
 

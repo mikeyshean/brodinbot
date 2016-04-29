@@ -70,6 +70,12 @@ ApiUtil = {
       ServerActions.receiveWorkflowResponse(workflowResponse);
     })
   },
+
+  deleteWorkflowResponse: function(workflowResponse) {
+    $.delete('api/workflow_responses/'+workflowResponse.id, function() {
+      ServerActions.deleteWorkflowResponse(workflowResponse);
+    })
+  },
 }
 
 module.exports = ApiUtil;

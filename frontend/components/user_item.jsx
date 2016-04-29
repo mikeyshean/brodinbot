@@ -40,8 +40,9 @@ var UserItem = React.createClass({
   },
 
   _deleteUser: function () {
-    if (window.confirm("Do you really want to delete this user?")) {
-      ClientActions.deleteUser(this.props.user.id);
+    var user = this.props.user
+    if (window.confirm("Do you really want to delete \""+user.name_full+"\"?")) {
+      ClientActions.deleteUser(user);
     }
   }
 

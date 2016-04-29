@@ -40,8 +40,10 @@ var WorkflowItem = React.createClass({
   },
 
   _deleteWorkflow: function () {
-    if (window.confirm("Do you really want to delete this workflow?")) {
-      ClientActions.deleteWorkflow(this.props.workflow.id);
+    var workflow = this.props.workflow;
+
+    if (window.confirm("Do you really want to delete \""+workflow.name+"\"?")) {
+      ClientActions.deleteWorkflow(workflow);
     }
   }
 

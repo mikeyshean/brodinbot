@@ -53,6 +53,7 @@ var Tree = React.createClass({
 
     );
   },
+  
   render: function() {
     if (!this.props.tree) {return null;}
 

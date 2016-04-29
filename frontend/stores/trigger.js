@@ -15,7 +15,7 @@ TriggerStore.__onDispatch = function (payload) {
     case AppConstants.TRIGGER_DELETED:
       var index;
       for (var i = 0; i < _triggers.length; i++) {
-        if (_triggers[i].id === payload.triggerId) {
+        if (_triggers[i].id === payload.trigger.id) {
           index = i;
           break;
         }

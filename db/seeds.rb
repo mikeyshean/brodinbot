@@ -10,7 +10,7 @@
 new_user_workflow1 = Workflow.create!(name: 'New User')
 new_user_workflow2 = Workflow.create!(name: 'Suggest Exercises')
 new_user_workflow3 = Workflow.create!(name: 'Save Reps')
-response1 = Response.create!(body: "Welcome to BrodinBot!  What should I call you?")
+response1 = Response.create!(body: "Welcome to BotChat!  What should I call you?")
 response3 = Response.create!(body: 'Action Success')
 response4 = Response.create!(body: 'Sorry, what\'s your name?')
 action1 = Action.create!(method: 'save_user_name')

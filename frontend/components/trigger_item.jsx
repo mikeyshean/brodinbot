@@ -40,8 +40,10 @@ var TriggerItem = React.createClass({
   },
 
   _deleteTrigger: function () {
-    if (window.confirm("Do you really want to delete this trigger?")) {
-      ClientActions.deleteTrigger(this.props.trigger.id);
+    var trigger = this.props.trigger;
+
+    if (window.confirm("Do you really want to delete \""+trigger.category+"\"?")) {
+      ClientActions.deleteTrigger(trigger);
     }
   }
 

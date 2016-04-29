@@ -20,7 +20,7 @@ UserStore.__onDispatch = function (payload) {
     case AppConstants.USER_DELETED:
       var index;
       for (var i = 0; i < _users.length; i++) {
-        if (_users[i].id === payload.userId) {
+        if (_users[i].id === payload.user.id) {
           index = i;
           break;
         }

@@ -20,7 +20,7 @@ WorkflowStore.__onDispatch = function (payload) {
     case AppConstants.WORKFLOW_DELETED:
       var index;
       for (var i = 0; i < _workflows.length; i++) {
-        if (_workflows[i].id === payload.workflowId) {
+        if (_workflows[i].id === payload.workflow.id) {
           index = i;
           break;
         }

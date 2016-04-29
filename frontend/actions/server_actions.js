@@ -10,10 +10,10 @@ ServerActions = {
     });
   },
 
-  deleteUser: function (userId) {
+  deleteUser: function (user) {
     AppDispatcher.dispatch({
       actionType: AppConstants.USER_DELETED,
-      userId: userId
+      user: user
     });
   },
 
@@ -31,10 +31,10 @@ ServerActions = {
     });
   },
 
-  deleteWorkflow: function (workflowId) {
+  deleteWorkflow: function (workflow) {
     AppDispatcher.dispatch({
       actionType: AppConstants.WORKFLOW_DELETED,
-      workflowId: workflowId
+      workflow: workflow
     })
   },
 
@@ -52,10 +52,10 @@ ServerActions = {
     });
   },
 
-  deleteTrigger: function (triggerId) {
+  deleteTrigger: function (trigger) {
     AppDispatcher.dispatch({
       actionType: AppConstants.TRIGGER_DELETED,
-      triggerId: triggerId
+      trigger: trigger
     })
   },
 

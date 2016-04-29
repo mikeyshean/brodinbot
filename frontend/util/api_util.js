@@ -9,9 +9,9 @@ ApiUtil = {
     });
   },
 
-  deleteUser: function(id) {
-    $.delete('api/users/'+id, function() {
-      ServerActions.deleteUser(id);
+  deleteUser: function(user) {
+    $.delete('api/users/'+user.id, function() {
+      ServerActions.deleteUser(user);
     })
   },
 
@@ -30,9 +30,9 @@ ApiUtil = {
     });
   },
 
-  deleteWorkflow: function(id) {
-    $.delete('api/workflows/'+id, function() {
-      ServerActions.deleteWorkflow(id);
+  deleteWorkflow: function(workflow) {
+    $.delete('api/workflows/'+workflow.id, function() {
+      ServerActions.deleteWorkflow(workflow);
     })
   },
 
@@ -50,9 +50,9 @@ ApiUtil = {
     });
   },
 
-  deleteTrigger: function(id) {
-    $.delete('api/triggers/'+id, function() {
-      ServerActions.deleteTrigger(id);
+  deleteTrigger: function(trigger) {
+    $.delete('api/triggers/'+trigger.id, function() {
+      ServerActions.deleteTrigger(trigger);
     })
   },
 

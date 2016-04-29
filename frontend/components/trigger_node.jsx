@@ -5,7 +5,7 @@ var TriggerNode = React.createClass({
   render: function() {
     return (
       <li className="trigger">
-        <a>{this.props.category}</a>
+        <a>{this.props.category || "default"}</a>
         {this.props.children}
       </li>
 

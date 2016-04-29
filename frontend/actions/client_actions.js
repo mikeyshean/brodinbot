@@ -16,8 +16,10 @@ var ClientActions = {
   fetchTree: ApiUtil.fetchTree,
 
   fetchTriggers: ApiUtil.fetchTriggers,
-  
+
   deleteTrigger: ApiUtil.deleteTrigger,
+
+  createWorkflowResponse: ApiUtil.createWorkflowResponse,
 
   selectNavItem: function (navSelection) {
     AppDispatcher.dispatch({

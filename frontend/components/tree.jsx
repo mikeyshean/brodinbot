@@ -3,6 +3,7 @@ var AppConstants = require('../constants/app_constants');
 var TriggerNode = require('../components/trigger_node');
 var ResponseNode = require('../components/response_node');
 var ActionNode = require('../components/action_node');
+var NodeIcons = require('../components/node_icons');
 
 var Tree = React.createClass({
   buildChildren: function (node) {
@@ -15,23 +16,34 @@ var Tree = React.createClass({
 
     if (actionType === "Action") {
       actionComponent = <ActionNode
-        key={actionType+actionable.id}
+        key={node.id}
+        workflow={node}
         method={actionable.method}
-        childNodes={node.children}
         buildChildren={this.buildChildren}
         />
     } else if (actionType === "Response") {
       actionComponent = <ResponseNode
-        key={actionType+actionable.id}
+        key={node.id}
+        workflow={node}
         body={actionable.body}
-        childNodes={node.children}
         buildChildren={this.buildChildren}
         />
+    } else {
+      actionComponent = (
+        <ul>
+          <li className="select-actionable">
+            <a>
+              A
+              <NodeIcons />
+            </a>
+          </li>
+        </ul>
+      )
     }
 
     return (
       <TriggerNode
-        key={"trigger"+triggerId}
+        key={node.id}
         category={triggerCategory}
         buildChildren={this.buildChildren}
         >

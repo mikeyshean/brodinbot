@@ -55,6 +55,21 @@ ApiUtil = {
       ServerActions.deleteTrigger(id);
     })
   },
+
+  createWorkflowResponse: function(parentId, workflowId, version) {
+    $.post(
+      'api/workflow_responses/',
+      {
+        workflow_response: {
+          parent_id: parentId,
+          workflow_id: workflowId,
+          version: version
+        }
+      },
+      function(workflowResponse) {
+      ServerActions.receiveWorkflowResponse(workflowResponse);
+    })
+  },
 }
 
 module.exports = ApiUtil;

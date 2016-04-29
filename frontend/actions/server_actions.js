@@ -65,6 +65,13 @@ ServerActions = {
       messages: messages
     })
   },
+
+  receiveWorkflowResponse: function (workflowResponse) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.WORKFLOW_RESPONSE_RECEIVED,
+      workflowResponse: workflowResponse
+    })
+  },
 }
 
 module.exports = ServerActions;

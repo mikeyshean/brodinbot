@@ -1,5 +1,7 @@
 var React = require('react');
 var AppConstants = require('../constants/app_constants');
+var ClientActions = require('../actions/client_actions');
+var NodeIcons = require('./node_icons');
 
 var ResponseNode = React.createClass({
 
@@ -8,7 +10,7 @@ var ResponseNode = React.createClass({
   },
 
   render: function() {
-    var children = this.props.childNodes;
+    var children = this.props.workflow.children;
     var childrenComponents = children.map(function(child) {
       return this.props.buildChildren(child);
     }.bind(this))
@@ -21,14 +23,9 @@ var ResponseNode = React.createClass({
       );
     }
 
-    var editIcons;
+    var nodeIcons;
     if (this.state.isHovered) {
-      editIcons = (
-        <div className="icon-wrapper">
-          <span className="glyphicon glyphicon-plus node-icon"></span>
-          <span className="glyphicon glyphicon-wrench node-icon"></span>
-        </div>
-      )
+      nodeIcons = <NodeIcons newWorkflowResponse={this._newWorkflowResponse} />
     }
 
     return (
@@ -36,7 +33,7 @@ var ResponseNode = React.createClass({
         <li className="response">
           <a onMouseEnter={this._handleHover.bind(this, true)} onMouseLeave={this._handleHover.bind(this, false)}>
             {"\""+this.props.body+"\""}
-            {editIcons}
+            {nodeIcons}
           </a>
 
           {childrenComponents}
@@ -51,6 +48,15 @@ var ResponseNode = React.createClass({
     } else {
       this.setState({isHovered: false})
     }
+  },
+
+  _newWorkflowResponse: function () {
+    var workflow = this.props.workflow;
+    ClientActions.createWorkflowResponse(
+      workflow.id,
+      workflow.workflow_id,
+      workflow.version
+    );
   }
 });
 

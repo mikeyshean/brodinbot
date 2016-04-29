@@ -34,12 +34,25 @@ class WorkflowResponse < ActiveRecord::Base
     self.terminates
   end
 
+  def unterminate
+    self.terminates = false
+    self.save!
+  end
+
+  def terminate
+    self.terminates = true
+    self.save!
+  end
+
   def to_node
     json = {}
-    json['id'] = self.id
+    json['id'] = id
+    json['workflow_id'] = workflow_id
+    json['version'] = version
     json['trigger'] = trigger ? trigger.to_node : nil
-    json['actionable_type'] = self.actionable_type
-    json['actionable'] = self.actionable.to_node
+    json['actionable_type'] = actionable_type
+    json['actionable'] = actionable ? actionable.to_node : nil
+    json['parent_id'] = parent_id
     json['children'] = []
 
     return json

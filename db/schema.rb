@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418201815) do
+ActiveRecord::Schema.define(version: 20160429000843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20160418201815) do
   create_table "workflow_responses", force: :cascade do |t|
     t.integer  "workflow_id",                     null: false
     t.integer  "version",         default: 1,     null: false
-    t.integer  "actionable_id",                   null: false
+    t.integer  "actionable_id"
     t.string   "actionable_type"
     t.integer  "parent_id"
     t.integer  "trigger_id"

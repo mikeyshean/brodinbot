@@ -36,6 +36,10 @@ class Action < ActiveRecord::Base
     result
   end
 
+  def has_action?
+    return false
+  end
+
   def to_node
     json = {}
     json['id'] = id

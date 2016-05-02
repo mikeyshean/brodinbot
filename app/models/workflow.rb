@@ -31,12 +31,12 @@ class Workflow < ActiveRecord::Base
   end
 
   def first_workflow_response(version = current_version)
-    WorkflowResponse.find_by(workflow_id: id, version: version, parent_id: nil)
+    WorkflowResponse.find_by(workflow_id: id, version: version, is_root: true)
   end
 
   def self.build_tree(id, version)
     workflow_responses = WorkflowResponse.includes(:trigger, :actionable)
-      .where(workflow_id: id, version: version).order(:parent_id, :trigger_id).to_a
+      .where(workflow_id: id, version: version).order(:trigger_id).to_a
 
     queue = []
     node_map = {}

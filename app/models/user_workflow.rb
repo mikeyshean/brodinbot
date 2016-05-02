@@ -27,10 +27,6 @@ class UserWorkflow < ActiveRecord::Base
     end
   end
 
-  def action_response(workflow_response_id, trigger_id)
-    workflow_responses.find_by(parent_id: workflow_response_id, trigger_id: trigger_id)
-  end
-
   def completed
     self.ended_at = DateTime.current
     self.save!
@@ -47,7 +43,7 @@ class UserWorkflow < ActiveRecord::Base
 
   def process_message(message)
     message_tokens = message.tokenize
-    possible_responses = workflow_responses.where(parent_id: workflow_response_id).includes(:trigger_strings)
+    possible_responses = workflow_response.children.includes(:trigger_strings)
 
     possible_responses.each do |workflow_response|
       workflow_response.trigger_strings.each do |trigger_string|
@@ -81,13 +77,17 @@ class UserWorkflow < ActiveRecord::Base
           else
             response = workflow_response.actionable.execute_method(user, captures)
 
-            return action_response(workflow_response.id, response[:trigger_id])
+            return action_response(workflow_response, response[:trigger_id])
           end
         end
       end
     end
   end
 
+  def action_response(workflow_response, trigger_id)
+    workflow_response.children.find_by(trigger_id: trigger_id)
+  end
+  
   def set_start_date
     self.started_at = DateTime.current
   end

@@ -1,6 +1,7 @@
 class WorkflowResponse < ActiveRecord::Base
-  belongs_to :parent, class_name: "WorkflowResponse"
-  has_many :children, class_name: "WorkflowResponse", foreign_key: :parent_id
+  has_many :incoming_edges, class_name: "Edge", foreign_key: :target_id
+  has_many :outgoing_edges, class_name: "Edge", foreign_key: :source_id
+  has_many :children, through: :outgoing_edges, source: :target
   belongs_to :trigger
   belongs_to :workflow
   has_many :trigger_strings, through: :trigger
@@ -52,7 +53,7 @@ class WorkflowResponse < ActiveRecord::Base
     json['trigger'] = trigger ? trigger.to_node : nil
     json['actionable_type'] = actionable_type
     json['actionable'] = actionable ? actionable.to_node : nil
-    json['parent_id'] = parent_id
+    # json['parent_id'] = parent_id
     json['children'] = []
 
     return json

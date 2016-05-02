@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429000843) do
+ActiveRecord::Schema.define(version: 20160502001824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20160429000843) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "edges", force: :cascade do |t|
+    t.integer  "source_id",  null: false
+    t.integer  "target_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "edges", ["source_id"], name: "index_edges_on_source_id", using: :btree
+  add_index "edges", ["target_id"], name: "index_edges_on_target_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.text     "body",                 null: false
@@ -85,8 +95,8 @@ ActiveRecord::Schema.define(version: 20160429000843) do
     t.integer  "version",         default: 1,     null: false
     t.integer  "actionable_id"
     t.string   "actionable_type"
-    t.integer  "parent_id"
     t.integer  "trigger_id"
+    t.boolean  "is_root",         default: false,  null: false
     t.boolean  "terminates",      default: false, null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false

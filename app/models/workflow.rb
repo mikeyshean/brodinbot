@@ -51,14 +51,15 @@ class Workflow < ActiveRecord::Base
       trigger = workflow_response.trigger
       actionable = workflow_response.actionable
 
-
+      # Add actionable as node
       node_map[:nodes] << actionable.to_node(
         workflow_response.actionable_x,
         workflow_response.actionable_y,
-        workflow_response.id
+        workflow_response.id,
+        workflow_response.is_root?
       )
 
-
+      # Add trigger as node
       if trigger
         node_map[:nodes] << trigger.to_node(
           workflow_response.trigger_x,
@@ -73,6 +74,7 @@ class Workflow < ActiveRecord::Base
         edge_count += 1
       end
 
+      # Add children edges
       workflow_response.children.each do |child|
         node_map[:edges] << {
           id: "e#{edge_count}",

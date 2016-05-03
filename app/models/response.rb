@@ -22,7 +22,7 @@ class Response < ActiveRecord::Base
     !action_id.nil?
   end
 
-  def to_node(x, y, workflow_response_id)
+  def to_node(x, y, workflow_response_id, is_root)
     json = {}
     json['id'] = node_id
     json['label'] = "\"#{body}\""
@@ -31,6 +31,10 @@ class Response < ActiveRecord::Base
     json['x'] = x
     json['y'] = y
     json['workflow_response_id'] = workflow_response_id
+
+    if is_root
+      json['is_root'] = true
+    end
 
     return json
   end

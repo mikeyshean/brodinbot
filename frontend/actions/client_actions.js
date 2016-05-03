@@ -13,8 +13,6 @@ var ClientActions = {
 
   deleteWorkflow: ApiUtil.deleteWorkflow,
 
-  fetchTree: ApiUtil.fetchTree,
-
   fetchTriggers: ApiUtil.fetchTriggers,
 
   deleteTrigger: ApiUtil.deleteTrigger,

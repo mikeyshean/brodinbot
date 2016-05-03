@@ -20,6 +20,8 @@ var Graph = React.createClass({
       },
       settings: {
           defaultLabelColor: '#fff',
+          defaultEdgeType: "curvedArrow",
+          minArrowSize: 10
       }
     });
 
@@ -35,18 +37,23 @@ var Graph = React.createClass({
         reset = true;
       }
 
-      switch(nodes[i].group) {
-        case "Trigger":
+      if (nodes[i].is_root) {
+        nodes[i].color = "red";
+      } else {
+        switch(nodes[i].group) {
+          case "Trigger":
           nodes[i].color = "yellow";
           break;
 
-        case "Action":
+          case "Action":
           nodes[i].color = "green";
           break;
 
-        default:
+          default:
           nodes[i].color = "#fff";
+        }
       }
+
 
     }
 

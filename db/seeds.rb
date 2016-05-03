@@ -23,6 +23,7 @@ workflow_response3 = new_user_workflow1.workflow_responses.create!(actionable_id
 workflow_response4 = new_user_workflow1.workflow_responses.create!(actionable_id: response4.id, actionable_type: response4.class, terminates: true)
 workflow_response2.outgoing_edges.create!(target_id: workflow_response3.id)
 workflow_response2.outgoing_edges.create!(target_id: workflow_response4.id)
+workflow_response4.outgoing_edges.create!(target_id: workflow_response2.id)
 
 # Triggers
 triggers = {

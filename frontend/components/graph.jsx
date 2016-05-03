@@ -19,7 +19,7 @@ var Graph = React.createClass({
         type: 'canvas'
       },
       settings: {
-          defaultNodeColor: '#ec5148'
+          defaultLabelColor: '#fff',
       }
     });
 
@@ -34,6 +34,20 @@ var Graph = React.createClass({
         ClientActions.saveNodePosition(nodes[i]);
         reset = true;
       }
+
+      switch(nodes[i].group) {
+        case "Trigger":
+          nodes[i].color = "yellow";
+          break;
+
+        case "Action":
+          nodes[i].color = "green";
+          break;
+
+        default:
+          nodes[i].color = "#fff";
+      }
+
     }
 
     s.refresh();

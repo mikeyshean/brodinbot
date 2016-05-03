@@ -25,7 +25,7 @@ class Response < ActiveRecord::Base
   def to_node(x, y, workflow_response_id)
     json = {}
     json['id'] = node_id
-    json['label'] = body
+    json['label'] = "\"#{body}\""
     json['group'] = 'Response'
     json['size'] = 3
     json['x'] = x

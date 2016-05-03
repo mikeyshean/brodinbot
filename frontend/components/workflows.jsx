@@ -49,7 +49,7 @@ var Workflows = React.createClass({
   },
 
   _handleSelection: function(id, version) {
-    ClientActions.fetchTree(id, version);
+    ClientActions.fetchGraph(id, version);
     this.setState({selectedId: id});
   },
 });

@@ -14,4 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bundle
+//= require sigma.min.js
+//= require sigma.layout.forceAtlas2.min.js
+//= require sigma.parsers.json.min.js
+//= require sigma.plugins.dragNodes.min.js
 //= require_tree .

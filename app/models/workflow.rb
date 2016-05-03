@@ -34,31 +34,56 @@ class Workflow < ActiveRecord::Base
     WorkflowResponse.find_by(workflow_id: id, version: version, is_root: true)
   end
 
-  def self.build_tree(id, version)
-    workflow_responses = WorkflowResponse.includes(:trigger, :actionable)
+  def self.build_graph(id, version)
+    workflow_responses = WorkflowResponse.includes(:trigger, :actionable, children: :actionable)
       .where(workflow_id: id, version: version).order(:trigger_id).to_a
 
-    queue = []
-    node_map = {}
-    root = workflow_responses.pop
+    workflow_responses.unshift(workflow_responses.pop)
 
-    unless root.nil?
-      root = root.to_node
-      queue << root
-    end
+    node_map = {
+      nodes: [],
+      edges: []
+    }
 
-    until queue.empty?
-      node = queue.shift
-      workflow_response = workflow_responses.first
-      while !workflow_response.nil? && workflow_response.parent_id === node['id']
-        workflow_response = workflow_responses.shift
-        new_node = workflow_response.to_node
-        queue << new_node
-        node['children'] << new_node
-        workflow_response = workflow_responses.first
+    edge_count = 0
+
+    workflow_responses.each do |workflow_response|
+      trigger = workflow_response.trigger
+      actionable = workflow_response.actionable
+
+
+      node_map[:nodes] << actionable.to_node(
+        workflow_response.actionable_x,
+        workflow_response.actionable_y,
+        workflow_response.id
+      )
+
+
+      if trigger
+        node_map[:nodes] << trigger.to_node(
+          workflow_response.trigger_x,
+          workflow_response.trigger_y,
+          workflow_response.id
+        )
+        node_map[:edges] << {
+          id: "e#{edge_count}",
+          source: "#{trigger.node_id}",
+          target: "#{actionable.node_id}"
+        }
+        edge_count += 1
       end
+
+      workflow_response.children.each do |child|
+        node_map[:edges] << {
+          id: "e#{edge_count}",
+          source: "#{actionable.node_id}",
+          target: "#{child.trigger.node_id}"
+        }
+        edge_count += 1
+      end
+
     end
-    root
+    node_map
   end
 
 end

@@ -12,7 +12,17 @@ class Api::WorkflowResponsesController < ApplicationController
 
       render json: workflow_response.to_node
     else
-      render :json => { :errors => workflow_response.errors.full_messages }, status: 422
+      render :json => {:errors => workflow_response.errors.full_messages}, status: 422
+    end
+  end
+
+  def update
+    workflow_response = WorkflowResponse.find(params[:id])
+
+    if workflow_response.update(workflow_response_params)
+      render json: workflow_response, status: 200
+    else
+      render :json => {:errors => workflow_response.errors.full_messages}, status: 422
     end
   end
 
@@ -35,7 +45,7 @@ class Api::WorkflowResponsesController < ApplicationController
   private
 
   def workflow_response_params
-    params.require(:workflow_response).permit(:workflow_id, :version, :parent_id)
+    params.require(:workflow_response).permit(:workflow_id, :version, :actionable_x, :actionable_y, :trigger_x, :trigger_y)
   end
 
   def destroy_children(children)

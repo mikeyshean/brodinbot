@@ -9,14 +9,13 @@ var AppConstants = keyMirror({
   WORKFLOWS_RECEIVED: null,
   WORKFLOW_RECEIVED: null,
   WORKFLOW_DELETED: null,
-  TREE_RECEIVED: null,
+  WORKFLOW_SELECTED: null,
+  GRAPH_RECEIVED: null,
   TRIGGERS_RECEIVED: null,
   TRIGGER_DELETED: null,
   NAV_SELECTED: null,
   FORM_ERRORS_RECEIVED: null,
-  FORM_ERRORS_CLEARED: null,
-  WORKFLOW_RESPONSE_RECEIVED: null,
-  WORKFLOW_RESPONSE_DELETED: null,
+  FORM_ERRORS_CLEARED: null
 })
 
 module.exports = AppConstants

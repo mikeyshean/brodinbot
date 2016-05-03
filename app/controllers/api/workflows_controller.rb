@@ -6,9 +6,9 @@ class Api::WorkflowsController < ApplicationController
   end
 
   def show
-    @tree = Workflow.build_tree(params[:id], params[:version])
+    @graph = Workflow.build_graph(params[:id], params[:version])
 
-    render json: @tree
+    render json: @graph
   end
 
   def create

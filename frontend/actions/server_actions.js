@@ -38,10 +38,10 @@ ServerActions = {
     })
   },
 
-  receiveTree: function (tree) {
+  receiveGraph: function (graph) {
     AppDispatcher.dispatch({
-      actionType: AppConstants.TREE_RECEIVED,
-      tree: tree
+      actionType: AppConstants.GRAPH_RECEIVED,
+      graph: graph
     });
   },
 

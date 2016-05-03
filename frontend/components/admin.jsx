@@ -1,7 +1,7 @@
 var React = require('react');
 var Nav = require('./nav');
 var Index = require('./index');
-var Tree = require('./tree');
+var Graph = require('./graph');
 var ClientActions = require('../actions/client_actions');
 var AppConstants = require('../constants/app_constants');
 var ApplicationStore = require('../stores/application');
@@ -20,13 +20,13 @@ var Admin = React.createClass({
     this.replaceState(ApplicationStore.state())
   },
   render: function() {
-    
+
     return (
       <div id="app-wrapper">
         <Nav navSelection={this.state.navSelection}/>
         <Index index={this.state.navSelection}/>
         <div className="pane" id="editor">
-          <Tree tree={this.state.treeData} />
+          <Graph graph={this.state.graph} />
         </div>
       </div>
     );

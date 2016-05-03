@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:index, :destroy, :show]
     resources :workflows, only: [:index, :create, :destroy, :show]
-    resources :workflow_responses, only: [:create, :destroy]
+    resources :workflow_responses, only: [:create, :update, :destroy]
     resources :triggers, only: [:index, :create, :destroy]
   end
 end

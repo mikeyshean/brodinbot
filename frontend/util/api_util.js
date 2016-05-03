@@ -36,11 +36,11 @@ ApiUtil = {
     })
   },
 
-  fetchTree: function(id,version){
+  fetchGraph: function(id,version){
     var url = 'api/workflows/'+id+"?version="+version;
 
-    $.get(url, function(tree) {
-      ServerActions.receiveTree(tree);
+    $.get(url, function(graph) {
+      ServerActions.receiveGraph(graph);
     });
   },
 
@@ -74,6 +74,29 @@ ApiUtil = {
   deleteWorkflowResponse: function(workflowResponse) {
     $.delete('api/workflow_responses/'+workflowResponse.id, function() {
       ServerActions.deleteWorkflowResponse(workflowResponse);
+    })
+  },
+
+  saveNodePosition: function(node) {
+    var url;
+    var data = {
+      workflow_response: {
+        id: node.workflow_response_id
+      }
+    };
+
+    switch(node.group) {
+      case "Trigger":
+        data.workflow_response.trigger_x = node.x;
+        data.workflow_response.trigger_y = node.y;
+        break;
+
+      default:
+        data.workflow_response.actionable_x = node.x;
+        data.workflow_response.actionable_y = node.y;
+    }
+
+    $.put('api/workflow_responses/'+node.workflow_response_id, data, function(resp) {
     })
   },
 }

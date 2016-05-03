@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502001824) do
+ActiveRecord::Schema.define(version: 20160503003137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,8 +96,12 @@ ActiveRecord::Schema.define(version: 20160502001824) do
     t.integer  "actionable_id"
     t.string   "actionable_type"
     t.integer  "trigger_id"
-    t.boolean  "is_root",         default: false,  null: false
+    t.boolean  "is_root",         default: false, null: false
     t.boolean  "terminates",      default: false, null: false
+    t.float    "trigger_x"
+    t.float    "trigger_y"
+    t.float    "actionable_x"
+    t.float    "actionable_y"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end

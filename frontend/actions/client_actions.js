@@ -23,6 +23,10 @@ var ClientActions = {
 
   deleteWorkflowResponse: ApiUtil.deleteWorkflowResponse,
 
+  saveNodePosition: ApiUtil.saveNodePosition,
+
+  fetchGraph: ApiUtil.fetchGraph,
+
   selectNavItem: function (navSelection) {
     AppDispatcher.dispatch({
       actionType: AppConstants.NAV_SELECTED,

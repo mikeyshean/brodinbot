@@ -16,6 +16,18 @@ ApplicationStore.__onDispatch = function (payload) {
       _application.graph = payload.graph;
       ApplicationStore.__emitChange();
       break;
+
+    case AppConstants.NODE_SELECTED:
+      _application.trigger = payload.trigger;
+      _application.actionable = payload.actionable;
+      ApplicationStore.__emitChange();
+      break;
+
+    case AppConstants.EDITOR_CLOSED:
+      _application.trigger = null;
+      _application.actionable = null;
+      ApplicationStore.__emitChange();
+      break;
   }
 }
 

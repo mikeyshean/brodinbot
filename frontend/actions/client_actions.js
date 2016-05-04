@@ -23,6 +23,14 @@ var ClientActions = {
 
   saveNodePosition: ApiUtil.saveNodePosition,
 
+  selectNode: function (trigger, actionable) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.NODE_SELECTED,
+      trigger: trigger,
+      actionable: actionable
+    });
+  },
+
   fetchGraph: ApiUtil.fetchGraph,
 
   selectNavItem: function (navSelection) {
@@ -31,6 +39,12 @@ var ClientActions = {
       navSelection: navSelection
     });
   },
+
+  closeEditor: function () {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.EDITOR_CLOSED
+    });
+  }
 
 };
 

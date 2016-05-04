@@ -1,7 +1,7 @@
 var ServerActions = require('../actions/server_actions');
 var FormActions = require('../actions/form_actions');
 
-ApiUtil = {
+var ApiUtil = {
 
   fetchUsers: function(){
     $.get('api/users', function(users) {

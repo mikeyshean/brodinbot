@@ -53,7 +53,6 @@ class WorkflowResponse < ActiveRecord::Base
     json['trigger'] = trigger ? trigger.to_node : nil
     json['actionable_type'] = actionable_type
     json['actionable'] = actionable ? actionable.to_node : nil
-    # json['parent_id'] = parent_id
     json['children'] = []
 
     return json

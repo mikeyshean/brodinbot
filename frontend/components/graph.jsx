@@ -26,6 +26,7 @@ var Graph = React.createClass({
     var len = nodes.length;
     var newNodes;
 
+    // Assign Color and Random Position for New Nodes
     for (i = 0; i < len; i++) {
       if (!nodes[i].x) {
         nodes[i].x = Math.random();
@@ -45,50 +46,24 @@ var Graph = React.createClass({
 
       setTimeout(function() {
         s.stopForceAtlas2();
-      }, 500)
+      }, 1000)
     }
 
+    // EventHandler: Save Node Position on Drag
     var dragListener = new sigma.plugins.dragNodes(s, s.renderers[0]);
     dragListener.bind('drop', function(event) {
       ClientActions.saveNodePosition(event.data.node);
-    });
+      this.dragged = true;
+    }.bind(this));
 
-    // Editor Helper Event Handler
-    s.bind("clickNode", function (event) {
-      var eventNode = event.data.node
-      var workflow_response_id = eventNode.workflow_response_id
-      var nodes = s.graph.nodes();
-      var trigger, actionable;
+    // EventHandler: Node selection for EditorHelper
+    s.bind("clickNode", this._handleNodeClick);
 
-      // Find Trigger and Actionable nodes
-      if (eventNode.group === "Trigger") {
-        trigger = eventNode;
-        actionable = GraphUtil.findActionable(nodes, workflow_response_id);
-      } else {
-        actionable = eventNode;
-        trigger = GraphUtil.findTrigger(nodes, workflow_response_id);
-      }
-
-      // Assign selected color if found
-      if (trigger) {
-        trigger.color = AppConstants.TRIGGER_COLOR
-      }
-      actionable.color = AppConstants.ACTIONABLE_COLOR;
-
-      // Gray out non-selected nodes
-      for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
-        if ((trigger && ((node.id !== trigger.id) && (node.id !== actionable.id))) || (!trigger && (node.id !== actionable.id)))  {
-          node.color = AppConstants.FADED_COLOR;
-        }
-      }
-      s.refresh();
-      ClientActions.selectNode(trigger, actionable);
-    });
   },
 
   shouldComponentUpdate: function (newProps) {
-    // Reset colors when not editing
+
+    // Reset colors when not editing for same graph
     if (!newProps.editing && this.props.editing
       && this.props.graph === newProps.graph) {
 
@@ -176,6 +151,40 @@ var Graph = React.createClass({
           minArrowSize: 10
       }
     });
+  },
+
+  _handleNodeClick: function (event) {
+    if (this.dragged) { this.dragged = false; return null;}
+
+    var eventNode = event.data.node
+    var workflow_response_id = eventNode.workflow_response_id
+    var nodes = this.sigma.graph.nodes();
+    var trigger, actionable;
+
+    // Find Trigger and Actionable nodes
+    if (eventNode.group === "Trigger") {
+      trigger = eventNode;
+      actionable = GraphUtil.findActionable(nodes, workflow_response_id);
+    } else {
+      actionable = eventNode;
+      trigger = GraphUtil.findTrigger(nodes, workflow_response_id);
+    }
+
+    // Assign selected color if found
+    if (trigger) {
+      trigger.color = AppConstants.TRIGGER_COLOR
+    }
+    actionable.color = AppConstants.ACTIONABLE_COLOR;
+
+    // Gray out non-selected nodes
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if ((trigger && ((node.id !== trigger.id) && (node.id !== actionable.id))) || (!trigger && (node.id !== actionable.id)))  {
+        node.color = AppConstants.FADED_COLOR;
+      }
+    }
+    this.sigma.refresh();
+    ClientActions.selectNode(trigger, actionable);
   }
 });
 

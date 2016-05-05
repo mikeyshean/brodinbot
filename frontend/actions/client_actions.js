@@ -15,6 +15,8 @@ var ClientActions = {
 
   fetchTriggers: ApiUtil.fetchTriggers,
 
+  saveWorkflowResponseTrigger: ApiUtil.saveWorkflowResponseTrigger,
+
   deleteTrigger: ApiUtil.deleteTrigger,
 
   createWorkflowResponse: ApiUtil.createWorkflowResponse,
@@ -24,6 +26,8 @@ var ClientActions = {
   saveNodePosition: ApiUtil.saveNodePosition,
 
   selectNode: function (trigger, actionable) {
+    this.fetchTriggers();
+
     AppDispatcher.dispatch({
       actionType: AppConstants.NODE_SELECTED,
       trigger: trigger,

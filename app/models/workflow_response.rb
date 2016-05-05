@@ -2,6 +2,7 @@ class WorkflowResponse < ActiveRecord::Base
   has_many :incoming_edges, class_name: "Edge", foreign_key: :target_id
   has_many :outgoing_edges, class_name: "Edge", foreign_key: :source_id
   has_many :children, through: :outgoing_edges, source: :target
+  has_many :parents, through: :incoming_edges, source: :source
   belongs_to :trigger
   belongs_to :workflow
   has_many :trigger_strings, through: :trigger
@@ -47,14 +48,68 @@ class WorkflowResponse < ActiveRecord::Base
 
   def to_node
     json = {}
-    json['id'] = id
-    json['workflow_id'] = workflow_id
-    json['version'] = version
-    json['trigger'] = trigger ? trigger.to_node : nil
-    json['actionable_type'] = actionable_type
-    json['actionable'] = actionable ? actionable.to_node : nil
-    json['children'] = []
+    json[:id] = id
+    json[:workflow_id] = workflow_id
+    json[:version] = version
+    json[:trigger] = trigger ? trigger.to_node : nil
+    json[:actionable_type] = actionable_type
+    json[:actionable] = actionable ? actionable.to_node : nil
+    json[:children] = []
 
     return json
+  end
+
+  def trigger_with_edges(*args)
+    json = {}
+    trigger_node = trigger.to_node(*args)
+    json[:nodes] = [trigger_node]
+    json[:edges] = [];
+
+    json[:edges] << {
+      id: self.edge_id,
+      source: trigger_node[:id],
+      target: actionable.to_node(id)[:id]
+    }
+
+    parents.each do |parent|
+      json[:edges] << {
+        id: parent.edge_id(self),
+        source: parent.actionable.to_node(parent.id)[:id],
+        target: trigger_node[:id]
+      }
+    end
+
+    return json
+  end
+
+  def actionable_with_edges(*args)
+    json = {}
+    actionable_node = actionable.to_node(*args)
+    json[:nodes] = [actionable_node]
+    json[:edges] = [];
+
+    json[:edges] << {
+      id: self.edge_id,
+      source: trigger.to_node(id)[:id],
+      target: actionable_node[:id]
+    }
+
+    children.each do |child|
+      json[:edges] << {
+        id: self.edge_id(child),
+        source: actionable_node[:id],
+        target: child.trigger.to_node(child.id)[:id]
+      }
+    end
+
+    return json
+  end
+
+  def edge_id(child = false)
+    if child
+      return "#{id}.#{actionable_id}.#{child.trigger_id}"
+    else
+      return "#{id}.#{trigger_id}.#{actionable_id}"
+    end
   end
 end

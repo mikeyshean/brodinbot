@@ -2,9 +2,15 @@ var React = require('react');
 var ClientActions = require('../actions/client_actions');
 
 var EditorHelper = React.createClass({
+  getInitialState: function () {
+    return {
+      WorkflowResponseId: this.props.WorkflowResponseId,
+    }
+  },
 
   render: function() {
     var trigger, actionable, closeButton;
+    if (!this.props.triggers) { return null;}
 
     if (this.props.actionable) {
       actionable = (
@@ -21,16 +27,24 @@ var EditorHelper = React.createClass({
       return null;
     }
 
-    if (this.props.trigger) {
-      trigger = (
-        <form>
-          <label>
-            Trigger:
-            <input type="text" placeholder={this.props.trigger.label}></input>
-          </label>
-        </form>
-      );
-    }
+    var triggerOptions = this.props.triggers.map(function (trigger) {
+      return (
+        <option key={trigger.id} value={trigger.id}>{trigger.category}</option>
+      )
+    }.bind(this));
+
+    var triggerId = this.props.trigger ? this.props.trigger.trigger_id : "";
+
+    trigger = (
+      <form>
+        <label>
+          Trigger:
+          <select name="triggers" onChange={this._handleTriggerSelection} value={triggerId}>
+            {triggerOptions}
+          </select>
+        </label>
+      </form>
+    );
 
     return (
       <div id="editor-helper">
@@ -43,6 +57,11 @@ var EditorHelper = React.createClass({
 
   _closeEditorHelper: function () {
     ClientActions.closeEditor();
+  },
+
+  _handleTriggerSelection: function (event) {
+    var triggerId = event.target.value;
+    ClientActions.saveWorkflowResponseTrigger(triggerId, this.props.workflowResponseId)
   }
 
 });

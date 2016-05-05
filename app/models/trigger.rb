@@ -3,20 +3,17 @@ class Trigger < ActiveRecord::Base
   has_many :trigger_strings
   has_many :workflow_responses
 
-  def to_node(x, y, workflow_response_id)
+  def to_node(workflow_response_id, x = nil, y = nil)
     json = {}
-    json['id'] = node_id
-    json['label'] = category
-    json['group'] = 'Trigger'
-    json['size'] = 3
-    json['x'] = x
-    json['y'] = y
-    json['workflow_response_id'] = workflow_response_id
+    json[:id] = "#{workflow_response_id}t#{id}"
+    json[:label] = category
+    json[:group] = 'Trigger'
+    json[:trigger_id] = id
+    json[:size] = 3
+    json[:x] = x
+    json[:y] = y
+    json[:workflow_response_id] = workflow_response_id
 
     return json
-  end
-
-  def node_id
-    "t#{id}"
   end
 end

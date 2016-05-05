@@ -17,10 +17,23 @@ class Api::WorkflowResponsesController < ApplicationController
   end
 
   def update
-    workflow_response = WorkflowResponse.find(params[:id])
+    workflow_response = WorkflowResponse.includes(:actionable, :trigger).where(id: params[:id]).first
 
     if workflow_response.update(workflow_response_params)
-      render json: workflow_response, status: 200
+      if workflow_response_params[:trigger_id]
+        render json: workflow_response.trigger_with_edges(
+          workflow_response.id,
+          workflow_response.trigger_x,
+          workflow_response.trigger_y
+        ), status: 200
+      else
+        render json: workflow_response.actionable_with_edges(
+          workflow_response.id,
+          workflow_response.actionable_x,
+          workflow_response.actionable_y,
+          workflow_response.is_root
+        ), status: 200
+      end
     else
       render :json => {:errors => workflow_response.errors.full_messages}, status: 422
     end
@@ -45,7 +58,7 @@ class Api::WorkflowResponsesController < ApplicationController
   private
 
   def workflow_response_params
-    params.require(:workflow_response).permit(:workflow_id, :version, :actionable_x, :actionable_y, :trigger_x, :trigger_y)
+    params.require(:workflow_response).permit(:id, :workflow_id, :version, :actionable_x, :actionable_y, :trigger_x, :trigger_y, :trigger_id, :actionable_id, :actionable_type)
   end
 
   def destroy_children(children)

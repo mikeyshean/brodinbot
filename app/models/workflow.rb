@@ -38,9 +38,9 @@ class Workflow < ActiveRecord::Base
     workflow_responses = WorkflowResponse.includes(:trigger, :actionable, children: :actionable)
       .where(workflow_id: id, version: version).order(:trigger_id).to_a
 
-    workflow_responses.unshift(workflow_responses.pop)
-
     node_map = {
+      workflow_id: id,
+      version: version,
       nodes: [],
       edges: []
     }
@@ -52,34 +52,44 @@ class Workflow < ActiveRecord::Base
       actionable = workflow_response.actionable
 
       # Add actionable as node
-      node_map[:nodes] << actionable.to_node(
+      actionable_node = actionable.to_node(
+        workflow_response.id,
         workflow_response.actionable_x,
         workflow_response.actionable_y,
-        workflow_response.id,
-        workflow_response.is_root?
+        workflow_response.is_root
       )
+
+      node_map[:nodes] << actionable_node
 
       # Add trigger as node
       if trigger
-        node_map[:nodes] << trigger.to_node(
+        trigger_node = trigger.to_node(
+          workflow_response.id,
           workflow_response.trigger_x,
-          workflow_response.trigger_y,
-          workflow_response.id
+          workflow_response.trigger_y
         )
+
+        node_map[:nodes] << trigger_node
+
         node_map[:edges] << {
-          id: "e#{edge_count}",
-          source: "#{trigger.node_id}",
-          target: "#{actionable.node_id}"
+          id: "#{workflow_response.edge_id}",
+          source: "#{trigger_node[:id]}",
+          target: "#{actionable_node[:id]}"
         }
         edge_count += 1
       end
 
       # Add children edges
       workflow_response.children.each do |child|
+        child_trigger_node = child.trigger.to_node(
+          child.id,
+          child.trigger_x,
+          child.trigger_y
+        )
         node_map[:edges] << {
-          id: "e#{edge_count}",
-          source: "#{actionable.node_id}",
-          target: "#{child.trigger.node_id}"
+          id: "#{workflow_response.edge_id(child)}",
+          source: "#{actionable_node[:id]}",
+          target: "#{child_trigger_node[:id]}"
         }
         edge_count += 1
       end

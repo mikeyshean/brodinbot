@@ -22,16 +22,25 @@ var Admin = React.createClass({
   },
   render: function() {
     var editing = this.state.trigger || this.state.actionable;
-
+    if (editing) {
+      var workflowResponseId = this.state.actionable.workflow_response_id;
+    }
     return (
       <div id="app-wrapper">
         <Nav navSelection={this.state.navSelection}/>
         <Index index={this.state.navSelection}/>
         <div className="pane" id="editor">
-          <Graph graph={this.state.graph} editing={editing} actionable={this.state.actionable}/>
+          <Graph
+            graph={this.state.graph}
+            editing={editing}
+            actionable={this.state.actionable}
+            trigger={this.state.trigger}
+          />
           <EditorHelper
             trigger={this.state.trigger}
+            triggers={this.state.triggers}
             actionable={this.state.actionable}
+            workflowResponseId={workflowResponseId}
           />
         </div>
       </div>

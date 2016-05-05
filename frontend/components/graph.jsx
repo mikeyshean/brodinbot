@@ -6,36 +6,32 @@ var ActionNode = require('../components/action_node');
 var NodeIcons = require('../components/node_icons');
 var ClientActions = require('../actions/client_actions');
 var GraphUtil = require('../util/graph_util');
+var GraphStore = require('../stores/graph');
 
 var Graph = React.createClass({
 
+  componentDidMount: function () {
+    this.listener = GraphStore.addListener(this._graphChanged);
+  },
+
+  componentWillUnmount: function () {
+    this.listener.remove();
+  },
+
   componentDidUpdate: function () {
-    if (this.sigma) { this.sigma.kill();}
+    if (this.sigma) {this.sigma.kill();}
 
-    var s = this.sigma = new sigma({
-      graph: this.props.graph,
-      container: 'graph',
-      renderer: {
-        container: document.getElementById('graph'),
-        type: 'canvas'
-      },
-      settings: {
-          defaultLabelColor: '#fff',
-          defaultEdgeType: "curvedArrow",
-          minArrowSize: 10
-      }
-    });
-
+    var s = this.sigma = this._newSigma()
     var nodes = s.graph.nodes();
     var len = nodes.length;
-    var reset;
+    var newNodes;
 
     for (i = 0; i < len; i++) {
       if (!nodes[i].x) {
         nodes[i].x = Math.random();
         nodes[i].y = Math.random();
         ClientActions.saveNodePosition(nodes[i]);
-        reset = true;
+        newNodes = true;
       }
 
       this._applyNodeColor(nodes[i]);
@@ -44,7 +40,7 @@ var Graph = React.createClass({
     s.refresh();
 
     // Trigger force-directed graph algorithm if new nodes.
-    if (reset) {
+    if (newNodes) {
       s.startForceAtlas2();
 
       setTimeout(function() {
@@ -64,6 +60,7 @@ var Graph = React.createClass({
       var nodes = s.graph.nodes();
       var trigger, actionable;
 
+      // Find Trigger and Actionable nodes
       if (eventNode.group === "Trigger") {
         trigger = eventNode;
         actionable = GraphUtil.findActionable(nodes, workflow_response_id);
@@ -72,6 +69,7 @@ var Graph = React.createClass({
         trigger = GraphUtil.findTrigger(nodes, workflow_response_id);
       }
 
+      // Assign selected color if found
       if (trigger) {
         trigger.color = AppConstants.TRIGGER_COLOR
       }
@@ -90,6 +88,7 @@ var Graph = React.createClass({
   },
 
   shouldComponentUpdate: function (newProps) {
+    // Reset colors when not editing
     if (!newProps.editing && this.sigma) {
       var nodes = this.sigma.graph.nodes();
       for (var i = 0; i < nodes.length; i++) {
@@ -97,11 +96,11 @@ var Graph = React.createClass({
       }
       this.sigma.refresh();
     }
+
     return this.props.graph !== newProps.graph
   },
 
   render: function() {
-
     return (
       <div id="graph">
 
@@ -133,6 +132,48 @@ var Graph = React.createClass({
     if (window.confirm("Do you really want to delete this workflow item AND all children items?")) {
       ClientActions.deleteWorkflowResponse(workflowResponse);
     }
+  },
+
+  _graphChanged: function () {
+    var graphState = GraphStore.all();
+
+    if (graphState.update) {
+      var nodeMap = graphState.nodeMap;
+      var node = nodeMap.nodes[0];
+      var sigmaGraph = this.sigma.graph
+
+      switch (node.group) {
+        case "Trigger":
+          sigmaGraph.dropNode(this.props.trigger.id)
+          break;
+
+        default:
+          sigmaGraph.dropNode(this.props.actionable.id)
+          break;
+      }
+
+      sigmaGraph.read(nodeMap);
+      var sigmaNode = sigmaGraph.nodes(node.id);
+
+      this._applyNodeColor(sigmaNode);
+      this.sigma.refresh();
+    }
+  },
+
+  _newSigma: function () {
+    return new sigma({
+      graph: this.props.graph,
+      container: 'graph',
+      renderer: {
+        container: document.getElementById('graph'),
+        type: 'canvas'
+      },
+      settings: {
+          defaultLabelColor: '#fff',
+          defaultEdgeType: "curvedArrow",
+          minArrowSize: 10
+      }
+    });
   }
 });
 

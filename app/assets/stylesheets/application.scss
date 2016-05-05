@@ -153,6 +153,10 @@ input:focus::-webkit-input-placeholder {
         width: 100%;
       }
 
+      select {
+        margin-left: 20px;
+      }
+
       button:hover {
         color: $hover_color;
         cursor: default;

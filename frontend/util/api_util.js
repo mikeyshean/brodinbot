@@ -50,6 +50,19 @@ var ApiUtil = {
     });
   },
 
+  saveWorkflowResponseTrigger: function(triggerId, workflowResponseId){
+    $.put('api/workflow_responses/'+workflowResponseId,
+    {
+      workflow_response: {
+        id: workflowResponseId,
+        trigger_id: triggerId
+      }
+    },
+    function(nodeMap) {
+      ServerActions.receiveWorkflowResponseTrigger(nodeMap);
+    });
+  },
+
   deleteTrigger: function(trigger) {
     $.delete('api/triggers/'+trigger.id, function() {
       ServerActions.deleteTrigger(trigger);

@@ -40,24 +40,21 @@ class Action < ActiveRecord::Base
     return false
   end
 
-  def to_node(x, y, workflow_response_id, is_root)
+  def to_node(workflow_response_id, x = nil, y = nil, is_root = false)
     json = {}
-    json['id'] = node_id
-    json['label'] = method
-    json['group'] = 'Action'
-    json['size'] = 3
-    json['x'] = x
-    json['y'] = y
-    json['workflow_response_id'] = workflow_response_id
+    json[:id] = "#{workflow_response_id}a#{id}"
+    json[:label] = method
+    json[:group] = 'Action'
+    json[:actionable_id] = id
+    json[:size] = 3
+    json[:x] = x
+    json[:y] = y
+    json[:workflow_response_id] = workflow_response_id
 
     if is_root
-      json['is_root'] = true
+      json[:is_root] = true
     end
 
     return json
-  end
-
-  def node_id
-    "a#{id}"
   end
 end

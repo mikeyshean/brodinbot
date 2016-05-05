@@ -57,4 +57,12 @@ class Action < ActiveRecord::Base
 
     return json
   end
+
+  def label
+    method
+  end
+
+  def label=(val)
+    self.method = val
+  end
 end

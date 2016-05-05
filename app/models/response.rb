@@ -39,4 +39,12 @@ class Response < ActiveRecord::Base
 
     return json
   end
+
+  def label
+    body
+  end
+
+  def label=(val)
+    self.body = val
+  end
 end

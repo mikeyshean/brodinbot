@@ -54,6 +54,7 @@ var Admin = React.createClass({
             trigger={this.state.trigger}
             triggers={this.state.triggers}
             actionable={this.state.actionable}
+            actionables={this.state.actionables}
             workflowResponseId={workflowResponseId}
           />
         </div>

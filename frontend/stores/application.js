@@ -2,12 +2,18 @@ var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher');
 var AppConstants = require('../constants/app_constants');
 var ApiUtil = require('../util/api_util');
-var _application = {navSelection: AppConstants.WORKFLOWS};
+var _application = {
+  navSelection: AppConstants.WORKFLOWS,
+  actionables: [],
+  triggers: []
+};
 var ApplicationStore = new Store(AppDispatcher);
 
 var resetEditor = function () {
   _application.trigger = null;
   _application.actionable = null;
+  _application.actionables = [];
+  _application.triggers = [];
 }
 ApplicationStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
@@ -32,6 +38,11 @@ ApplicationStore.__onDispatch = function (payload) {
 
     case AppConstants.TRIGGERS_RECEIVED:
       _application.triggers = payload.triggers;
+      ApplicationStore.__emitChange();
+      break;
+
+    case AppConstants.ACTIONABLES_RECEIVED:
+      _application.actionables = payload.actionables;
       ApplicationStore.__emitChange();
       break;
 

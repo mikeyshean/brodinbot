@@ -16,4 +16,12 @@ class Trigger < ActiveRecord::Base
 
     return json
   end
+
+  def label
+    category
+  end
+
+  def label=(val)
+    self.category = val
+  end
 end

@@ -15,7 +15,11 @@ var ClientActions = {
 
   fetchTriggers: ApiUtil.fetchTriggers,
 
+  fetchActionables: ApiUtil.fetchActionables,
+
   saveWorkflowResponseTrigger: ApiUtil.saveWorkflowResponseTrigger,
+
+  saveWorkflowResponseActionable: ApiUtil.saveWorkflowResponseActionable,
 
   deleteTrigger: ApiUtil.deleteTrigger,
 
@@ -27,6 +31,7 @@ var ClientActions = {
 
   selectNode: function (trigger, actionable) {
     this.fetchTriggers();
+    this.fetchActionables(actionable.group);
 
     AppDispatcher.dispatch({
       actionType: AppConstants.NODE_SELECTED,

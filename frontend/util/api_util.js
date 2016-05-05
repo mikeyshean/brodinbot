@@ -50,6 +50,14 @@ var ApiUtil = {
     });
   },
 
+  fetchActionables: function(group){
+    var resource = group.toLowerCase()+"s";
+
+    $.get('api/'+resource, function(actionables) {
+      ServerActions.receiveAllActionables(actionables);
+    });
+  },
+
   saveWorkflowResponseTrigger: function(triggerId, workflowResponseId){
     $.put('api/workflow_responses/'+workflowResponseId,
     {
@@ -60,6 +68,22 @@ var ApiUtil = {
     },
     function(nodeMap) {
       ServerActions.receiveWorkflowResponseTrigger(nodeMap);
+    }).fail(function (resp) {
+      // console.log(resp.responseJSON); handle error messages here
+    });
+  },
+
+  saveWorkflowResponseActionable: function(actionableId, group, workflowResponseId){
+    $.put('api/workflow_responses/'+workflowResponseId,
+    {
+      workflow_response: {
+        id: workflowResponseId,
+        actionable_id: actionableId,
+        actionable_type: group
+      }
+    },
+    function(nodeMap) {
+      ServerActions.receiveWorkflowResponseActionable(nodeMap);
     }).fail(function (resp) {
       // console.log(resp.responseJSON); handle error messages here
     });

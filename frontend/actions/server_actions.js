@@ -52,6 +52,13 @@ ServerActions = {
     });
   },
 
+  receiveAllActionables: function (actionables) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.ACTIONABLES_RECEIVED,
+      actionables: actionables
+    });
+  },
+
   deleteTrigger: function (trigger) {
     AppDispatcher.dispatch({
       actionType: AppConstants.TRIGGER_DELETED,

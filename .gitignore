@@ -20,3 +20,4 @@ node_modules
 
 # Bundle. Generate with npm install + webpack
 app/assets/javascripts/bundle.js*
+.byebug_history

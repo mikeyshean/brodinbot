@@ -8,6 +8,8 @@ class WorkflowResponse < ActiveRecord::Base
   has_many :trigger_strings, through: :trigger
   belongs_to :actionable, :polymorphic => true
 
+  before_save :check_duplicate_triggers
+
   def response_body(user)
     if actionable.has_action?
       result_arr = actionable.action.execute_method(user)
@@ -110,6 +112,20 @@ class WorkflowResponse < ActiveRecord::Base
       return "#{id}.#{actionable_id}.#{child.trigger_id}"
     else
       return "#{id}.#{trigger_id}.#{actionable_id}"
+    end
+  end
+
+  private
+
+  def check_duplicate_triggers
+    parents.each do |parent|
+      parent.children.each do |child|
+        next if child.id == id
+        if child.trigger_id === trigger_id
+          self.errors.add(:base, "Cannot save duplicate outgoing triggers for same actionable.")
+          return false
+        end
+      end
     end
   end
 end

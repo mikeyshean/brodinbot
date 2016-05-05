@@ -60,6 +60,8 @@ var ApiUtil = {
     },
     function(nodeMap) {
       ServerActions.receiveWorkflowResponseTrigger(nodeMap);
+    }).fail(function (resp) {
+      // console.log(resp.responseJSON); handle error messages here
     });
   },
 

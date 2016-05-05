@@ -45,7 +45,7 @@ var Graph = React.createClass({
 
       setTimeout(function() {
         s.stopForceAtlas2();
-      }, 1000)
+      }, 500)
     }
 
     var dragListener = new sigma.plugins.dragNodes(s, s.renderers[0]);
@@ -89,7 +89,9 @@ var Graph = React.createClass({
 
   shouldComponentUpdate: function (newProps) {
     // Reset colors when not editing
-    if (!newProps.editing && this.sigma) {
+    if (!newProps.editing && this.props.editing
+      && this.props.graph === newProps.graph) {
+
       var nodes = this.sigma.graph.nodes();
       for (var i = 0; i < nodes.length; i++) {
         this._applyNodeColor(nodes[i]);

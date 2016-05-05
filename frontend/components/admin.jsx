@@ -7,10 +7,23 @@ var ClientActions = require('../actions/client_actions');
 var AppConstants = require('../constants/app_constants');
 var ApplicationStore = require('../stores/application');
 
+/***************************
+
+Highest component in hierarchy for Admin App.
+
+- Responds to changes in ApplicationStore
+- Holds Navigation Menu, Index View, & Editor
+
+
+***************************/
+
 var Admin = React.createClass({
+
   getInitialState: function () {
     return ApplicationStore.state()
   },
+
+  // Responds to events to ApplicationStore
   componentDidMount: function () {
     this.listener = ApplicationStore.addListener(this._appChanged);
   },
@@ -20,6 +33,7 @@ var Admin = React.createClass({
   _appChanged: function () {
     this.replaceState(ApplicationStore.state())
   },
+
   render: function() {
     var editing = this.state.trigger || this.state.actionable;
     if (editing) {

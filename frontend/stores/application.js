@@ -55,6 +55,11 @@ ApplicationStore.__onDispatch = function (payload) {
       _application.trigger = payload.nodeMap.nodes[0];
       ApplicationStore.__emitChange();
       break;
+
+    case AppConstants.WORKFLOW_RESPONSE_ACTIONABLE_RECEIVED:
+      _application.actionable = payload.nodeMap.nodes[0];
+      ApplicationStore.__emitChange();
+      break;
   }
 }
 

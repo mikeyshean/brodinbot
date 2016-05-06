@@ -87,6 +87,13 @@ ServerActions = {
     })
   },
 
+  receiveWorkflowResponseActionable: function (nodeMap) {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.WORKFLOW_RESPONSE_ACTIONABLE_RECEIVED,
+      nodeMap: nodeMap
+    })
+  },
+
   deleteWorkflowResponse: function (workflowResponse) {
     AppDispatcher.dispatch({
       actionType: AppConstants.WORKFLOW_RESPONSE_DELETED,

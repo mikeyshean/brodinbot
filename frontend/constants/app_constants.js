@@ -15,6 +15,7 @@ var AppConstants = keyMirror({
   TRIGGERS_RECEIVED: null,
   ACTIONABLES_RECEIVED: null,
   WORKFLOW_RESPONSE_TRIGGER_RECEIVED: null,
+  WORKFLOW_RESPONSE_ACTIONABLE_RECEIVED: null,
   TRIGGER_DELETED: null,
   NAV_SELECTED: null,
   FORM_ERRORS_RECEIVED: null,
@@ -23,10 +24,10 @@ var AppConstants = keyMirror({
 })
 
 AppConstants = Object.assign(AppConstants, {
-  ACTIONABLE_COLOR: "green",
-  TRIGGER_COLOR: "yellow",
-  RESPONSE_COLOR: "#fff",
-  ROOT_COLOR: "red",
+  ACTION_COLOR: "yellow",
+  TRIGGER_COLOR: "red",
+  RESPONSE_COLOR: "green",
+  ROOT_COLOR: "#fff",
   FADED_COLOR: "gray",
 })
 

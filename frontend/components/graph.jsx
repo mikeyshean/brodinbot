@@ -95,7 +95,7 @@ var Graph = React.createClass({
         break;
 
         case "Action":
-        node.color = AppConstants.ACTIONABLE_COLOR;
+        node.color = AppConstants.ACTION_COLOR;
         break;
 
         case "Response":
@@ -174,7 +174,16 @@ var Graph = React.createClass({
     if (trigger) {
       trigger.color = AppConstants.TRIGGER_COLOR
     }
-    actionable.color = AppConstants.ACTIONABLE_COLOR;
+
+    switch(actionable.group) {
+      case "Response":
+        actionable.color = AppConstants.RESPONSE_COLOR;
+        break;
+
+      case "Action":
+        actionable.color = AppConstants.ACTION_COLOR;
+        break;
+    }
 
     // Gray out non-selected nodes
     for (var i = 0; i < nodes.length; i++) {

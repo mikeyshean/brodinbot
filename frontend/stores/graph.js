@@ -19,6 +19,12 @@ GraphStore.__onDispatch = function (payload) {
       _graphState.nodeMap = payload.nodeMap;
       GraphStore.__emitChange();
       break;
+
+    case AppConstants.WORKFLOW_RESPONSE_ACTIONABLE_RECEIVED:
+      _graphState.update = true;
+      _graphState.nodeMap = payload.nodeMap;
+      GraphStore.__emitChange();
+      break;
   }
 };
 

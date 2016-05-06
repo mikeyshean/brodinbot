@@ -175,14 +175,18 @@ var Graph = React.createClass({
       trigger.color = AppConstants.TRIGGER_COLOR
     }
 
-    switch(actionable.group) {
-      case "Response":
+    if (actionable.is_root) {
+      actionable.color = AppConstants.ROOT_COLOR;
+    } else {
+      switch(actionable.group) {
+        case "Response":
         actionable.color = AppConstants.RESPONSE_COLOR;
         break;
 
-      case "Action":
+        case "Action":
         actionable.color = AppConstants.ACTION_COLOR;
         break;
+      }
     }
 
     // Gray out non-selected nodes

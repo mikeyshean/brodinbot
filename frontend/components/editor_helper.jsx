@@ -11,11 +11,15 @@ var EditorHelper = React.createClass({
   render: function() {
     if (!this.props.triggers || !this.props.actionable) { return null;}
 
+    // Create trigger drop-down
+
     var triggerOptions = this.props.triggers.map(function (trigger) {
       return (
         <option key={trigger.id} value={trigger.id}>{trigger.category}</option>
       )
     }.bind(this));
+
+    // Create actionable drop-down
 
     var actionableOptions = this.props.actionables.map(function (actionable) {
       return (
@@ -23,9 +27,11 @@ var EditorHelper = React.createClass({
       )
     }.bind(this));
 
+    // Assign default drop-down selection
     var actionableId = this.props.actionable ? this.props.actionable.actionable_id : "0";
     var triggerId = this.props.trigger ? this.props.trigger.trigger_id : "0";
 
+    // Create form components
     var trigger = (
       <form>
         <label for="triggers">
@@ -52,6 +58,14 @@ var EditorHelper = React.createClass({
 
     return (
       <div id="editor-helper">
+        <a id="create-response" onClick={this._createWorkflowResponse}>
+          <span className="glyphicon glyphicon-plus"></span>
+          Add Response
+        </a>
+        <a id="create-action" onClick={this._createWorkflowResponse}>
+          <span className="glyphicon glyphicon-plus"></span>
+          Add Action
+        </a>
         <span className="glyphicon glyphicon-remove" onClick={this._closeEditorHelper}></span>
         {trigger}
         {actionable}

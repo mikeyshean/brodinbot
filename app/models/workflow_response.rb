@@ -61,9 +61,13 @@ class WorkflowResponse < ActiveRecord::Base
     return json
   end
 
-  def trigger_with_edges(*args)
+  def trigger_with_edges
     json = {}
-    trigger_node = trigger.to_node(*args)
+    trigger_node = trigger.to_node(
+      id,
+      trigger_x,
+      trigger_y
+    )
     json[:nodes] = [trigger_node]
     json[:edges] = [];
 
@@ -84,9 +88,14 @@ class WorkflowResponse < ActiveRecord::Base
     return json
   end
 
-  def actionable_with_edges(*args)
+  def actionable_with_edges
     json = {}
-    actionable_node = actionable.to_node(*args)
+    actionable_node = actionable.to_node(
+      id,
+      actionable_x,
+      actionable_y,
+      is_root
+    )
     json[:nodes] = [actionable_node]
     json[:edges] = [];
 

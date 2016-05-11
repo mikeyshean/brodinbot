@@ -20,23 +20,16 @@ class Api::WorkflowResponsesController < ApplicationController
     workflow_response = WorkflowResponse.includes(:actionable, :trigger).where(id: params[:id]).first
 
     if workflow_response.update(workflow_response_params)
+
       if workflow_response_params[:trigger_id]
-        render json: workflow_response.trigger_with_edges(
-          workflow_response.id,
-          workflow_response.trigger_x,
-          workflow_response.trigger_y
-        ), status: 200
+        render json: workflow_response.trigger_with_edges, status: 200
       elsif workflow_response_params[:actionable_id]
-        render json: workflow_response.actionable_with_edges(
-          workflow_response.id,
-          workflow_response.actionable_x,
-          workflow_response.actionable_y,
-          workflow_response.is_root
-        ), status: 200
+        render json: workflow_response.actionable_with_edges, status: 200
       else
-        # For saving new node coords
+        # Updating new node coords only
         render json: {}, status: 200
       end
+
     else
       render :json => {:errors => workflow_response.errors.full_messages}, status: 422
     end
